@@ -16,7 +16,7 @@
 
 ## -*- texinfo -*-
 ## @deftypefn {} {[@var{axes}, @var{buttons}, @var{povs}] =} read (@var{joy})
-## @deftypefn {} {[@var{axes}, @var{buttons}, @var{povs}] =} read (@var{joy}, @var{forcevalue})
+## @deftypefnx {} {[@var{axes}, @var{buttons}, @var{povs}] =} read (@var{joy}, @var{forcevalue})
 ## Get the value of all axes, buttons and povs joystick @var{joy} and optionally
 ## set the force feedback value.
 ##

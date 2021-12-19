@@ -32,14 +32,14 @@ release_dir_dep := .hg/dirstate
 HG           := hg
 HG_CMD        = $(HG) --config alias.$(1)=$(1) --config defaults.$(1)= $(1)
 HG_ID        := $(shell $(call HG_CMD,identify) --id | sed -e 's/+//' )
-HG_TIMESTAMP := $($(firstword $(shell $(call HG_CMD,log) --rev $(HG_ID) --template '{date|hgdate}')))
+TIMESTAMP := $($(firstword $(shell $(call HG_CMD,log) --rev $(HG_ID) --template '{date|hgdate}')))
 TAR_REPRODUCIBLE_OPTIONS := --sort=name --mtime="@$(TIMESTAMP)" --owner=0 --group=0 --numeric-owner
 endif
 ifeq ($(vcs),git)
 release_dir_dep := .git/index
 GIT          := git
-GIT_TIMESTAMP := $(firstword $(shell $(GIT) log -n1 --date=unix --format="%ad"))
-TAR_REPRODUCIBLE_OPTIONS := --sort=name --mtime="@$(GIT_TIMESTAMP)" --owner=0 --group=0 --numeric-owner
+TIMESTAMP := $(firstword $(shell $(GIT) log -n1 --date=unix --format="%ad"))
+TAR_REPRODUCIBLE_OPTIONS := --sort=name --mtime="@$(TIMESTAMP)" --owner=0 --group=0 --numeric-owner
 endif
 
 TAR_OPTIONS  := --format=ustar $(TAR_REPRODUCIBLE_OPTIONS)
@@ -119,7 +119,7 @@ $(RELEASE_DIR): .hg/dirstate
 	chmod -R a+rX,u+w,go-w "$@"
 
 .PHONY: docs
-docs: doc/$(PACKAGE).pdf
+docs: doc/$(PACKAGE).pdf doc/$(PACKAGE).info
 
 .PHONY: clean-docs
 clean-docs:
@@ -128,12 +128,15 @@ clean-docs:
 	$(RM) -f doc/functions.texi
 
 doc/$(PACKAGE).pdf: doc/$(PACKAGE).texi doc/functions.texi
-	cd doc && SOURCE_DATE_EPOCH=$(HG_TIMESTAMP) $(TEXI2PDF) $(PACKAGE).texi
+	cd doc && SOURCE_DATE_EPOCH=$(TIMESTAMP) $(TEXI2PDF) $(PACKAGE).texi
 	# remove temp files
 	cd doc && $(RM) -f $(PACKAGE).aux $(PACKAGE).cp $(PACKAGE).cps $(PACKAGE).fn  $(PACKAGE).fns $(PACKAGE).log $(PACKAGE).toc
 
+doc/$(PACKAGE).info: doc/$(PACKAGE).texi doc/functions.texi
+	cd doc && SOURCE_DATE_EPOCH=$(TIMESTAMP) $(MAKEINFO) $(PACKAGE).texi
+
 doc/functions.texi:
-	cd doc && ./mkfuncdocs.py --allowscan --ignore="@PKGWINQUERYREGFUNC@" --src-dir=../inst/ --src-dir=../src/ ../INDEX.in | $(SED) 's/@seealso/@xseealso/g' > functions.texi
+	cd doc && ./mkfuncdocs.py --allowscan --src-dir=../inst/ ../INDEX | $(SED) 's/@seealso/@xseealso/g' > functions.texi
 
 # install is a prerequesite to the html directory (note that the html
 # tarball will use the implicit rule for ".tar.gz" files).
@@ -166,7 +169,6 @@ clean: clean-docs
 
 distclean: clean
 	-$(RM) -r inst/test
-	-$(RM) INDEX
 
 #
 # Recipes for testing purposes

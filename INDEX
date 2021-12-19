@@ -1,8 +1,8 @@
-octave-joytsick >> joystick
-
+joystick >> Joystick Toolkit
+Utility Functions
+ vrjoysticklist
 Joystick Functions
  vrjoystick
- vrjoysticklist
  @octave_joystick/axis
  @octave_joystick/button
  @octave_joystick/caps
