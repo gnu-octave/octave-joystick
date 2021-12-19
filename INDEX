@@ -1,6 +1,7 @@
 joystick >> Joystick Toolkit
 Utility Functions
  vrjoysticklist
+ isvrjoystick
 Joystick Functions
  vrjoystick
  @octave_joystick/axis
