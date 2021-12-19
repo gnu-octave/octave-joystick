@@ -1,0 +1,11 @@
+Name: octave-joystick
+Version: 0.0.1
+Date: 2021-01-23
+Author: John Donoghue <john.donoghue@ieee.org>
+Maintainer: John Donoghue <john.donoghue@ieee.org>
+Title: Octave Joystick Toolkit
+Description: Provides Joystick functions for Octave
+Categories: Math
+Depends: octave (>= 4.0.0)
+License: GPLv3+
+Url: http://octave.sf.net
