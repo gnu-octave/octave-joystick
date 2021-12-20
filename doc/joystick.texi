@@ -20,6 +20,8 @@
 
 @c %*** Start of TITLEPAGE
 @titlepage
+@center @image{joystick-logo}
+@vskip 0pt plus 1filll
 @title Joystick Toolkit @value{VERSION}
 @subtitle Joystick functions for @acronym{GNU} Octave.
 @author John Donoghue
