@@ -189,8 +189,10 @@ clean: clean-docs clean-install
 	$(RM) -r $(RELEASE_DIR) $(RELEASE_TARBALL) $(HTML_TARBALL) $(HTML_DIR)
 	$(MAKE) -C src clean
 
-distclean: clean
+distclean: clean-docs clean-install
+	-$(RM) -r $(RELEASE_DIR) $(RELEASE_TARBALL) $(HTML_TARBALL) $(HTML_DIR)
 	-$(RM) -r inst/test
+	$(MAKE) -C src distclean
 
 #
 # Recipes for testing purposes
@@ -203,6 +205,11 @@ src/Makefile: src/Makefile.in src/configure
 
 autoconf_target: $(AUTOCONF_TARGETS)
 
+$(INSTALL_STAMP): $(RELEASE_TARBALL)
+	@echo "Installing package under $(INSTALLATION_DIR) ..."
+	$(OCTAVE) --eval $(octave_install_commands)
+	touch $(INSTALL_STAMP)
+
 # Build any requires oct files.  Some packages may not need this at all.
 # Other packages may require a configure file to be created and run first.
 all: autoconf_target $(CC_SOURCES)
@@ -214,6 +221,9 @@ run: all
 	$(OCTAVE) --silent --persist --path "$(TOPDIR)/inst/" --path "$(TOPDIR)/src/" --path "$(TOPDIR)/examples/" \
 	  --eval 'if(!isempty("$(DEPENDS)")); pkg load $(DEPENDS); endif;' \
 	  --eval '$(PKG_ADD)'
+
+runlocal: $(INSTALL_STAMP)
+	$(run_in_place) --persist 
 
 # Test example blocks in the documentation.  Needs doctest package
 #  http://octave.sourceforge.net/doctest/index.html

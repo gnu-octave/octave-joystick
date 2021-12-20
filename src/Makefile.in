@@ -44,6 +44,8 @@ clean: cleanarchtests
 	rm -f $(OCT) *.o
 
 distclean: clean
-	rm Makefile
+	-rm oct-alt-includes.h
+	-rm config.h config.log
+	-rm Makefile
 
 .PHONY: all clean
