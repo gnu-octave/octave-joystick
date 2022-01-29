@@ -172,7 +172,7 @@ ans =
 The axis and button states can be read for any axis or button number.
 
 @example
-i> a1 = axis(joy, 1)
+> a1 = axis(joy, 1)
 a1 = 0
 
 > b1 = button(joy, 1)

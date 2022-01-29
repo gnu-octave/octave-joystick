@@ -1,7 +1,7 @@
 Introduction
 ============
 
-The Octave joysticl package provides basic joystick read/write functions
+The Octave joystick package provides basic joystick read/write functions
 
 Requirements
 ============
@@ -39,7 +39,10 @@ Usage:
    pkg load joystick
    (Required each time Octave is started)
 
-2. Get a joystick id to manipulate
+2. List available joystickes
+   vrjoysticklist
+
+3. Get a joystick to manipulate using the id
    joy = vrjoystick(1)
 
 Documentation

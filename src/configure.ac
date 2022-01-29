@@ -18,7 +18,7 @@
 ### <http://www.gnu.org/licenses/>.
 
 AC_PREREQ([2.67])
-AC_INIT([octave joystick package], [0.7.0])
+AC_INIT([octave joystick package], [0.0.1])
 AC_CONFIG_HEADERS([config.h])
 
 # Avoid warnings for redefining AH-generated preprocessor symbols of
@@ -127,39 +127,9 @@ OF_OCTAVE_LIST_ALT_SYMS([
   [[#include <octave/unwind-prot.h>]
    [#include <octave/octave.h>]
   ]
-],
-
-[dnl
-  [octave_value_typeinfo::register_binary_op],
-  [octave::type_info::register_binary_op],
-  [
-   [octave::type_info& ti = octave::interpreter::the_interpreter ()->get_type_info ();]
-   [ti.register_binary_op(octave_value::op_eq, 1,1,0);]
-  ],
-  [OCTAVE__REGISTER_BINARY_OP],
-  [[#include <octave/octave.h>]],
-  [
-   [#include <octave/octave.h>]
-   [#include <octave/interpreter.h>]
-  ]
 ]
 
 ],[oct-alt-includes.h])
-
-if test $ac_cv_octsym_OCTAVE__REGISTER_BINARY_OP == "octave::type_info::register_binary_op"; then
-  AC_DEFINE([OCTAVE__NEW_REGISTER_OP], [], [Use new register_binary_op]) 
-fi
-
-OF_OCTAVE_CHECK_SYM(
-  [for octave::sys::u8_to_wstring],
-  [
-    std::wstring s = octave::sys::u8_to_wstring("test");
-  ],
-  [HAVE_OCTAVE_U8_TO_WSTRING],
-  [
-    #include <octave/lo-sysdep.h>
-  ]
-)
 
 CXX=$save_altsyms_CXX
 CXXFLAGS=$save_altsyms_CXXFLAGS
@@ -167,7 +137,7 @@ LDFLAGS=$save_altsyms_LDFLAGS
 LIBS=$save_altsyms_LIBS
 
 
-# SDL
+# SDL/SDL2
 AC_PATH_PROG(SDL_CONFIG, sdl2-config, no)
 if test "$SDL_CONFIG" == "no" ; then
   AC_PATH_PROG(SDL_CONFIG, sdl-config, no)

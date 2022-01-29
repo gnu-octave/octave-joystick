@@ -16,7 +16,7 @@
 
 ## -*- texinfo -*-
 ## @deftypefn {} {@var{joy} =} vrjoystick (@var{id})
-## @deftypefnx {} {@var{joy} =} vrjoystick (@var{dev}, @var{"forcefeedback"})
+## @deftypefnx {} {@var{joy} =} vrjoystick (@var{id}, @var{"forcefeedback"})
 ## Attempt to open a joystick.
 ##
 ## @subsubheading Inputs
@@ -37,7 +37,7 @@
 ## @seealso{vrjoysticklist}
 ## @end deftypefn
 
-function obj = vrjoystick(id)
+function obj = vrjoystick(id, forcefeed)
   if nargin < 1 || !isnumeric(id) || id < 1
     error ("Expected id to be a positive numeric value");
   endif
@@ -47,6 +47,11 @@ endfunction
 %!xtest
 %! # may fail if no devices
 %! joy = vrjoystick(1);
+%! assert(!isempty(joy))
+
+%!xtest
+%! # may fail if no devices
+%! joy = vrjoystick(1, 'forcefeedback');
 %! assert(!isempty(joy))
 
 %!error <Expected id> vrjoystick ()

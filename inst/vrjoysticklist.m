@@ -29,16 +29,18 @@
 ## Display available joysticks
 ## @example
 ## @code {
-## joysticklist;
+## vrjoysticklist;
 ## }
 ## @end example
 ##
-## Get an list available joysticks
+## Get a list available joysticks to a variable
 ## @example
 ## @code {
 ## joylist = joysticklist;
 ## }
 ## @end example
+##
+## The list will contain ID and Name entries for each joystick.
 ##
 ## @seealso{vrjoystick}
 ## @end deftypefn
