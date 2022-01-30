@@ -7,3 +7,4 @@ aclocal
 autoconf    # generate configure script
 autoheader -f
 
+rm -rf autom4te.cache

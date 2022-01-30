@@ -6,30 +6,9 @@ CFLAGS  = $(CXXFLAGS) $(CPPFLAGS) @SDL_CFLAGS@ @DEFS@
 OCTAVE_CONFIG ?= octave-config
 MKOCTFILE ?= mkoctfile 
 GREP ?= /usr/bin/grep
+RM ?= rm -f
 
-all: $(OCT) archtests
-
-
-ARCHDIR   := "$(shell $(OCTAVE_CONFIG) -p CANONICAL_HOST_TYPE)-$(shell $(OCTAVE_CONFIG) -p API_VERSION)"
-CC_SOURCES  := $(wildcard *.cc)
-CC_TST_SOURCES := $(shell $(GREP) --files-with-matches '^%!' $(CC_SOURCES))
-TST_SOURCES := $(patsubst %.cc,../inst/$(ARCHDIR)/%.cc-tst,$(CC_TST_SOURCES))
-
-$(TST_SOURCES): ../inst/$(ARCHDIR)/%.cc-tst: %.cc | ../../inst/$(ARCHDIR)
-	@echo "Extracting tests from $< ..."
-	@$(RM) -f "$@" "$@-t"
-	@(      echo "## Generated from $<"; \
-	        $(GREP) '^%!' "$<") > "$@"
-
-PHONY: archtests
-archtests: $(TST_SOURCES)
-
-PHONY: cleanarchtests
-cleanarchtests:
-	rm -f $(TST_SOURCES)
-
-../inst/$(ARCHDIR):
-	@mkdir -p "$@"
+all: $(OCT)
 
 %.o: %.c
 	$(MKOCTFILE) $(CFLAGS) -c $^
@@ -40,12 +19,13 @@ cleanarchtests:
 %.oct: $(OBJ)
 	$(MKOCTFILE) $^ $(LFLAGS) $(TCPLIBS) -o $@
 
-clean: cleanarchtests
-	rm -f $(OCT) *.o
+clean:
+	-$(RM) $(OCT) *.o
 
 distclean: clean
-	-rm oct-alt-includes.h
-	-rm config.h config.log
-	-rm Makefile
+	-$(RM) autom4te.cache
+	-$(RM) oct-alt-includes.h
+	-$(RM) config.h config.log
+	-$(RM) Makefile
 
 .PHONY: all clean
