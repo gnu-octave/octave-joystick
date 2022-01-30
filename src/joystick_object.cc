@@ -231,7 +231,22 @@ octave_joystick::subsref (const std::string& type, const std::list<octave_value_
       {
         std::string propname = (((idx.front()) (0)).string_value ());
 
-        if (type.length() > 1 && type[1] == '(')
+	if (propname == "ID")
+          {
+            retval = octave_value(info.id);
+          }
+	else if (propname == "Name")
+          {
+            retval = octave_value(info.name);
+          }
+	else if (propname == "Status")
+          {
+            if (dev)
+              retval = octave_value("Open");
+            else
+              retval = octave_value("Closed");
+          }
+	else if (type.length() > 1 && type[1] == '(')
           {
             octave_value_list ovl;
             count++;

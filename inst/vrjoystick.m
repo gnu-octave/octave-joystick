@@ -47,11 +47,16 @@ endfunction
 %!xtest
 %! # may fail if no devices
 %! joy = vrjoystick(1);
-%! assert(!isempty(joy))
+%! assert(!isempty(joy));
+%! assert(joy.ID, 1);
+%! assert(!isempty(joy.Name));
+%! assert(joy.Status, "Open");
+%! close(joy);
+%! assert(joy.Status, "Closed");
 
 %!xtest
 %! # may fail if no devices
 %! joy = vrjoystick(1, 'forcefeedback');
-%! assert(!isempty(joy))
+%! assert(!isempty(joy));
 
-%!error <Expected id> vrjoystick ()
+%!error <Expected id> vrjoystick ();
