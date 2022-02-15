@@ -225,6 +225,11 @@ run: all
 runlocal: $(INSTALL_STAMP)
 	$(run_in_place) --persist 
 
+rungui: all
+	octave --gui --silent --persist --path "$(TOPDIR)/inst/" --path "$(TOPDIR)/src/" --path "$(TOPDIR)/examples/" \
+	  --eval 'if(!isempty("$(DEPENDS)")); pkg load $(DEPENDS); endif;' \
+	  --eval '$(PKG_ADD)'
+
 # Test example blocks in the documentation.  Needs doctest package
 #  http://octave.sourceforge.net/doctest/index.html
 doctest: all

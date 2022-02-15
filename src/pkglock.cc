@@ -35,6 +35,10 @@ DEFMETHOD_DLD (__joystick_pkg_lock__, interp, args, , "internal function")
       else if (args(0).int_value () == 0 &&  interp.mislocked("__joystick_pkg_lock__"))
         interp.munlock("__joystick_pkg_lock__");
     }
+  else
+    {
+      retval = octave_value (interp.mislocked("__joystick_pkg_lock__"));
+    }
   return retval;
 }
 #else

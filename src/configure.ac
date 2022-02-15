@@ -138,13 +138,9 @@ LIBS=$save_altsyms_LIBS
 
 
 # SDL/SDL2
-AC_PATH_PROG(SDL_CONFIG, sdl2-config, no)
+AC_PATH_PROGS([SDL_CONFIG], [sdl2-config sdl-config], [no])
 if test "$SDL_CONFIG" == "no" ; then
-  AC_PATH_PROG(SDL_CONFIG, sdl-config, no)
-
-  if test "$SDL_CONFIG" == "no" ; then
-    AC_MSG_ERROR("*** No sdl-config or sdl2-config found")
-  fi
+  AC_MSG_ERROR("*** No sdl-config or sdl2-config found")
 fi
 
 SDL_CFLAGS=`$SDL_CONFIG --cflags`
@@ -164,7 +160,8 @@ save_sdl_LIBS="$LIBS"
 CPPFLAGS="$CPPFLAGS $SDL_CFLAGS"
 LIBS="$LIBS $SDL_LIBS"
 AC_CHECK_HEADERS([SDL.h], [], AC_MSG_ERROR([SDL.h is required]))
-AC_CHECK_FUNC([SDL_Quit], [], [AC_MSG_ERROR([Could not find SDL_Quit])])
+# cant use in windows as needs a SDL_main defined
+#AC_CHECK_FUNC([SDL_Quit], [], [AC_MSG_ERROR([Could not find SDL_Quit])])
 LIBS=$save_sdl_LIBS
 CPPFLAGS=$save_sdl_CPPFLAGS
 

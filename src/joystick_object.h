@@ -58,6 +58,7 @@ public:
   bool is_object (void) const { return true; }
   bool isobject (void) const { return true; }
 
+  string_vector map_keys (void) const { return fieldnames; }
   dim_vector dims (void) const { static dim_vector dv(1, 1); return dv; }
 
   octave_base_value * clone (void) const;
@@ -91,6 +92,8 @@ public:
   static std::vector<joystick_dev_info> listAvailableDevices();
 private:
   octave_joystick(const octave_joystick &);
+
+  string_vector fieldnames;
 
   joystick_dev_info info;
   SDL_Joystick *dev;

@@ -21,41 +21,54 @@
 #endif
 
 #include "joystick_object.h"
-
 #include <SDL.h>
 
 
 static bool have_joystick = false;
 static void process_events()
 {
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-        // do nothing withem them ?
-	switch(event.type)
-	  {
-            case SDL_JOYAXISMOTION:
-            case SDL_JOYBUTTONDOWN:
-            case SDL_JOYBUTTONUP:
-            case SDL_JOYHATMOTION:
-            case SDL_JOYBALLMOTION:
-              have_joystick = true;
-	    default:
-              break;
-          }
+  if (SDL_JoystickEventState(SDL_QUERY) == SDL_IGNORE)
+    {
+      SDL_JoystickUpdate();
+      have_joystick = true;
     }
-
+  else
+    {
+      SDL_Event event;
+      while (SDL_PollEvent(&event))
+        {
+          // do nothing with them - just flag we have something
+          switch(event.type)
+            {
+              case SDL_JOYAXISMOTION:
+              case SDL_JOYBUTTONDOWN:
+              case SDL_JOYBUTTONUP:
+              case SDL_JOYHATMOTION:
+              case SDL_JOYBALLMOTION:
+                have_joystick = true;
+              default:
+                break;
+            }
+        }
+    }
 }
 
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_joystick, "octave_joystick", "octave_joystick");
 
 octave_joystick::octave_joystick ()
+  : fieldnames(3)
 {
   dev = 0;
+
+  fieldnames[0] = "ID";
+  fieldnames[1] = "Name";
+  fieldnames[2] = "Status";
 }
 
 octave_joystick::octave_joystick (const octave_joystick &m)
 {
   dev = 0;
+  fieldnames = m.fieldnames;
 }
 
 octave_joystick::~octave_joystick (void)
@@ -68,7 +81,7 @@ octave_joystick::create (int id)
 {
   close ();
 
-  process_events(); //SDL_JoystickUpdate();
+  process_events();
 
   dev = SDL_JoystickOpen(id-1);
   if(dev)
@@ -77,7 +90,7 @@ octave_joystick::create (int id)
 #if SDL_MAJOR_VER > 1
       d.name = SDL_JoystickName(dev);
 #else
-      d.name = SDL_JoystickName(id);
+      d.name = SDL_JoystickName(id-1);
 #endif
 
       d.naxis = SDL_JoystickNumAxes(dev);
@@ -96,7 +109,7 @@ octave_joystick::create (int id)
 double
 octave_joystick::axis (int id)
 {
-  process_events(); //SDL_JoystickUpdate();
+  process_events();
 
   if(dev && info.naxis >= id)
     {
@@ -112,7 +125,7 @@ octave_joystick::axis (int id)
 int
 octave_joystick::button (int id)
 {
-  process_events(); //SDL_JoystickUpdate();
+  process_events();
 
   if(dev && info.nbuttons >= id)
     {
@@ -126,7 +139,7 @@ octave_joystick::button (int id)
 int
 octave_joystick::pov (int id)
 {
-  process_events(); //SDL_JoystickUpdate();
+  process_events();
 
   if(dev && info.nhats >= id)
     {
@@ -233,18 +246,18 @@ octave_joystick::subsref (const std::string& type, const std::list<octave_value_
 
 	if (propname == "ID")
           {
-            retval = octave_value(info.id);
+            retval(0) = octave_value(info.id);
           }
 	else if (propname == "Name")
           {
-            retval = octave_value(info.name);
+            retval(0) = octave_value(info.name);
           }
 	else if (propname == "Status")
           {
             if (dev)
-              retval = octave_value("Open");
+              retval(0) = octave_value("Open");
             else
-              retval = octave_value("Closed");
+              retval(0) = octave_value("Closed");
           }
 	else if (type.length() > 1 && type[1] == '(')
           {
@@ -260,6 +273,7 @@ octave_joystick::subsref (const std::string& type, const std::list<octave_value_
 	else
 	  {
             error ("octave_joystick object unknown property '%s'", propname.c_str());
+	    return retval;
 	  }
       }
       break;
@@ -275,7 +289,7 @@ std::vector<joystick_dev_info> octave_joystick::listAvailableDevices()
 {
   std::vector<joystick_dev_info> devs;
 
-  process_events(); //SDL_JoystickUpdate();
+  process_events();
 
   int jcount = SDL_NumJoysticks();
   SDL_Joystick * joy = 0;
@@ -323,8 +337,10 @@ void init_types(void)
         }
       else
         {
-          //SDL_JoystickEventState(SDL_IGNORE);
-	  //SDL_SetEventFilter()
+#if SDL_MAJOR_VER < 2
+          // seems only way to make it work in sdl1 is to not use events
+          SDL_JoystickEventState(SDL_IGNORE);
+#endif
 	}
     }
 }
