@@ -40,7 +40,7 @@ function example_js_cube ()
     xt = pt * 2;
 
     # if no longer valid, stop the loop
-    if !ishandle(h1)
+    if !ishandle(f) || !ishandle(h1)
       break
     endif
 
