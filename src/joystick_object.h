@@ -23,6 +23,10 @@
 #include <iostream>
 #include <errno.h>
 
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
+
 void init_types(void);
 
 #include <SDL.h>
@@ -41,7 +45,7 @@ public:
   virtual ~joystick_dev_info() {}
 };
 
-class octave_joystick : public octave_base_value
+class octave_joystick : public OCTAVE_BASE_CLASS
 {
 public:
   octave_joystick();

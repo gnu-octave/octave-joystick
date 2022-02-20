@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 #
-### Copyright (C) 2021 John Donoghue <john.donoghue@ieee.org>
+### Copyright (C) 2021-2022 John Donoghue <john.donoghue@ieee.org>
 ###
 ### This program is free software; you can redistribute it and/or
 ### modify it under the terms of the GNU General Public License as
@@ -127,6 +127,15 @@ OF_OCTAVE_LIST_ALT_SYMS([
   [[#include <octave/unwind-prot.h>]
    [#include <octave/octave.h>]
   ]
+],
+
+[dnl
+  [octave_base_value],
+  [octave_base_dld_value],
+  [[octave_base_dld_value tmp();]],
+  [OCTAVE_BASE_CLASS],
+  [],
+  []
 ]
 
 ],[oct-alt-includes.h])
