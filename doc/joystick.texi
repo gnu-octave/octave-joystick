@@ -1,5 +1,5 @@
 \input texinfo @c -*-texinfo-*-
-@c Copyright (c) 2021, John Donoghue <john.donoghue@ieee.org>
+@c Copyright (c) 2021-2022, John Donoghue <john.donoghue@ieee.org>
 @c Octave Joystick - Basic implmentation of vrjoystick functions
 
 @c For manually generating the documentation use
@@ -12,7 +12,7 @@
 @paragraphindent 0
 @finalout
 @set VERSION 0.0.1
-@set COPYRIGHT_DATE 2021
+@set COPYRIGHT_DATE 2021-2022
 @c @afourwide
 @c %*** End of the HEADER
 
