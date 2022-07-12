@@ -25,7 +25,12 @@ clean:
 distclean: clean
 	-$(RM) autom4te.cache
 	-$(RM) oct-alt-includes.h
-	-$(RM) config.h config.log
+	-$(RM) config.h config.log config.status
 	-$(RM) Makefile
+
+extraclean: distclean
+	-$(RM) configure
+	-$(RM) config.h.in
+	-$(RM) aclocal.m4
 
 .PHONY: all clean
