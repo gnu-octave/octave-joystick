@@ -16,7 +16,7 @@
 
 ## -*- texinfo -*-
 ## @deftypefn {} {@var{info} =} caps (@var{joy})
-## Get the capabilites joystick @var{joy}.
+## Get the capabilities joystick @var{joy}.
 ##
 ## @subsubheading Inputs
 ## @var{joy} - a previously opened joystick object@*

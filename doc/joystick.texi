@@ -1,13 +1,13 @@
 \input texinfo @c -*-texinfo-*-
 @c Copyright (c) 2021-2022, John Donoghue <john.donoghue@ieee.org>
-@c Octave Joystick - Basic implmentation of vrjoystick functions
+@c Octave Joystick - Basic implementation of vrjoystick functions
 
 @c For manually generating the documentation use
 @c   LANGUAGE=en makeinfo --html --no-split joystick.texi
 
 @c %*** Start of HEADER
 @setfilename joystick.info
-@settitle Octave Joystick - Basic implmemnation of vrjoystick for GNU Octave
+@settitle Octave Joystick - Basic implementation of vrjoystick for GNU Octave
 @afourpaper
 @paragraphindent 0
 @finalout
@@ -43,7 +43,7 @@ into another language, under the same conditions as for modified versions.
 
 @page
 @heading Distribution
-The @acronym{GNU} Octave Joysick package is @dfn{free} software.
+The @acronym{GNU} Octave Joystick package is @dfn{free} software.
 Free software is a matter of the users' freedom to run, copy, distribute,
 study, change and improve the software.
 This means that everyone is free to use it and free to redistribute it
@@ -104,7 +104,7 @@ The toolkit must be then be loaded once per each @acronym{GNU} Octave session in
 @section Online Direct install
 @cindex Online install
 With an internet connection available, the Joystick package can be installed from
-the octave-jostick website using the following command within @acronym{GNU} Octave:
+the octave-joystick website using the following command within @acronym{GNU} Octave:
 
 @example
 pkg install https://sourceforge.net/projects/octave-joystick/files/v@value{VERSION}/joystick-@value{VERSION}.tar.gz/download
@@ -137,7 +137,7 @@ The toolkit must be loaded on each @acronym{GNU} Octave session.
 @chapter Basic Usage Overview
 @cindex Basic Usage Overview
 
-A list of available josticks available can be obtained using the vrjoysticklist function.
+A list of available joysticks available can be obtained using the vrjoysticklist function.
 
 @example
 > vrjoysticklist 
@@ -155,7 +155,7 @@ joy =
     Name: Logitech Dual Action
 @end example
 
-The capabilities of the joystick can be read to deterine number of axis and buttons are available.
+The capabilities of the joystick can be read to determine number of axis and buttons are available.
 
 @example
 > caps(joy)
