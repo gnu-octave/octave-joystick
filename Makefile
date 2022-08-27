@@ -17,6 +17,23 @@ TAR       ?= tar
 CUT       ?= cut
 TR        ?= tr
 TEXI2PDF  ?= texi2pdf -q
+MAKEINFO  ?= makeinfo
+
+# work out a possible help generator
+ifeq ($(strip $(QHELPGENERATOR)),)
+  ifneq ($(shell qhelpgenerator-qt5 -v 2>/dev/null),)
+    QHELPGENERATOR = qhelpgenerator-qt5
+  #else ifneq ($(shell qhelpgenerator -qt5 -v 2>/dev/null),)
+  #  v4 wont process collection files, but returns ok status on version
+  #  QHELPGENERATOR = qhelpgenerator -qt5
+  else ifneq ($(shell qcollectiongenerator -qt5 -v 2>/dev/null),)
+    QHELPGENERATOR = qcollectiongenerator -qt5
+  else ifneq ($(shell qcollectiongenerator-qt5 -v 2>/dev/null),)
+    QHELPGENERATOR = qcollectiongenerator-qt5
+  else
+    QHELPGENERATOR = true
+  endif
+endif
 
 ### Note the use of ':=' (immediate set) and not just '=' (lazy set).
 ### http://stackoverflow.com/a/448939/1609556
@@ -114,28 +131,38 @@ endif
 
 #	cp "$@/examples/"*.m "$@/inst/"
 	$(MAKE) PACKAGE_REPO_DIR=$(PACKAGE_REPO_DIR) -C "$@" docs
-	cd "$@" && rm -rf "devel/" && rm -rf "deprecated/" && $(RM) -f doc/mkfuncdocs.py
+	cd "$@" && rm -rf "devel/" && rm -rf "deprecated/" && $(RM) -f doc/mkfuncdocs.py doc/mkqhcp.py
 #	cd "$@/src" && aclocal -Im4 && autoconf && $(RM) -r "src/autom4te.cache"
 	cd "$@/src" && $(SHELL) ./autogen.sh && $(RM) -r "autom4te.cache"
 	cd "$@" && $(RM) Makefile
 	chmod -R a+rX,u+w,go-w "$@"
 
 .PHONY: docs
-docs: doc/$(PACKAGE).pdf doc/$(PACKAGE).info
+docs: doc/$(PACKAGE).pdf doc/$(PACKAGE).info doc/$(PACKAGE).qhc doc/$(PACKAGE).html
 
 .PHONY: clean-docs
 clean-docs:
 	$(RM) -f doc/$(PACKAGE).info
 	$(RM) -f doc/$(PACKAGE).pdf
 	$(RM) -f doc/functions.texi
+	$(RM) -f doc/$(PACKAGE).html
+	$(RM) -f doc/$(PACKAGE).qhc doc/$(PACKAGE).qch
 
 doc/$(PACKAGE).pdf: doc/$(PACKAGE).texi doc/functions.texi
 	cd doc && SOURCE_DATE_EPOCH=$(TIMESTAMP) $(TEXI2PDF) $(PACKAGE).texi
 	# remove temp files
 	cd doc && $(RM) -f $(PACKAGE).aux $(PACKAGE).cp $(PACKAGE).cps $(PACKAGE).fn  $(PACKAGE).fns $(PACKAGE).log $(PACKAGE).toc
 
+doc/$(PACKAGE).html: doc/$(PACKAGE).texi doc/functions.texi
+	cd doc && SOURCE_DATE_EPOCH=$(TIMESTAMP) $(MAKEINFO) --html --css-ref=$(PACKAGE).css  --no-split --output=${PACKAGE}.html $(PACKAGE).texi
+
 doc/$(PACKAGE).info: doc/$(PACKAGE).texi doc/functions.texi
 	cd doc && SOURCE_DATE_EPOCH=$(TIMESTAMP) $(MAKEINFO) $(PACKAGE).texi
+
+doc/$(PACKAGE).qhc: doc/$(PACKAGE).html
+	# try also create qch file if can
+	cd doc && ./mkqhcp.py $(PACKAGE) && $(QHELPGENERATOR) $(PACKAGE).qhcp -o $(PACKAGE).qhc
+	cd doc && $(RM) -f $(PACKAGE).qhcp $(PACKAGE).qhp
 
 doc/functions.texi:
 	cd doc && ./mkfuncdocs.py --allowscan --src-dir=../inst/ ../INDEX | $(SED) 's/@seealso/@xseealso/g' > functions.texi
@@ -146,7 +173,8 @@ run_in_place = $(OCTAVE) --eval ' pkg ("local_list", "$(PACKAGE_LIST)"); ' \
 # install is a prerequesite to the html directory (note that the html
 # tarball will use the implicit rule for ".tar.gz" files).
 html_options = --eval 'options = get_html_options ("octave-forge");' \
-               --eval 'options.package_doc = "$(PACKAGE).texi";'
+               --eval 'options.package_doc = "$(PACKAGE).texi";' \
+	       --eval 'options.package_doc_options = [options.package_doc_options " --css-include=$(PACKAGE).css"];'
 
 $(HTML_DIR): install
 	@echo "Generating HTML documentation. This may take a while ..."
@@ -187,12 +215,12 @@ clean-install:
 
 clean: clean-docs clean-install
 	$(RM) -r $(RELEASE_DIR) $(RELEASE_TARBALL) $(HTML_TARBALL) $(HTML_DIR)
-	$(MAKE) -C src clean
+	test -e src/Makefile && $(MAKE) -C src clean || true
 
 distclean: clean-docs clean-install
 	-$(RM) -r $(RELEASE_DIR) $(RELEASE_TARBALL) $(HTML_TARBALL) $(HTML_DIR)
 	-$(RM) -r inst/test
-	$(MAKE) -C src distclean
+	test -e src/Makefile && $(MAKE) -C src distclean || true
 
 #
 # Recipes for testing purposes
