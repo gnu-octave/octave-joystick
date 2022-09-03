@@ -16,13 +16,10 @@
 
 ## -*- texinfo -*-
 ## @deftypefn {} {[@var{axes}, @var{buttons}, @var{povs}] =} read (@var{joy})
-## @deftypefnx {} {[@var{axes}, @var{buttons}, @var{povs}] =} read (@var{joy}, @var{forcevalue})
-## Get the value of all axes, buttons and povs joystick @var{joy} and optionally
-## set the force feedback value.
+## Get the value of all axes, buttons and povs joystick @var{joy}.
 ##
 ## @subsubheading Inputs
 ## @var{joy} - a previously opened joystick object@*
-## @var{forcevalue} - currently umimplemented@*
 ##
 ## @subsubheading Outputs
 ## @var{axes} - vector of the axis values.@*
@@ -32,7 +29,7 @@
 ## @seealso{vrjoystick, axis, pov, buttons}
 ## @end deftypefn
 
-function [axes, buttons, povs] = read(joy, force)
+function [axes, buttons, povs] = read(joy)
   buttons = [];
   povs = [];
   axess = [];

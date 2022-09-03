@@ -1,4 +1,4 @@
-## Copyright (C) 2021 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2021-2022 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software: you can redistribute it and/or modify it
 ## under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 ## None
 ##
 ## @subsubheading Outputs
-## @var{joylist} - a list of joystick ID, Name structures..@*
+## @var{joylist} - a list of joystick ID, Name, ForceFeedbackSupported structures.@*
 ##
 ## @subsubheading Examples
 ## Display available joysticks
@@ -40,7 +40,7 @@
 ## }
 ## @end example
 ##
-## The list will contain ID and Name entries for each joystick.
+## The list will contain ID, Name and ForceFeedbackSupported entries for each joystick.
 ##
 ## @seealso{vrjoystick}
 ## @end deftypefn
@@ -56,9 +56,9 @@ function obj = vrjoysticklist()
     obj = tmp;
   else
     # display
-    printf("ID Name\n");
+    printf("ID Name                           ForceFeedbackSupported\n");
     for i=1:length(tmp)
-      printf("%2d %s\n", tmp(i).ID, tmp(i).Name);
+      printf("%2d %-30s %d\n", tmp(i).ID, tmp(i).Name, tmp(i).ForceFeedbackSupported);
     endfor
   endif
 endfunction

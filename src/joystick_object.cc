@@ -1,4 +1,4 @@
-// Copyright (C) 2021 John Donoghue <john.donoghue@ieee.org>
+// Copyright (C) 2021-2022 John Donoghue <john.donoghue@ieee.org>
 //
 // This program is free software; you can redistribute it and/or modify it under
 // the terms of the GNU General Public License as published by the Free Software
@@ -23,8 +23,9 @@
 #include "joystick_object.h"
 #include <SDL.h>
 
-
 static bool have_joystick = false;
+static bool warn_joystick = false;
+
 static void process_events()
 {
   if (SDL_JoystickEventState(SDL_QUERY) == SDL_IGNORE)
@@ -56,13 +57,18 @@ static void process_events()
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_joystick, "octave_joystick", "octave_joystick");
 
 octave_joystick::octave_joystick ()
-  : fieldnames(3)
+  : fieldnames(4)
 {
   dev = 0;
+#ifdef SDL_INIT_HAPTIC
+  haptic = 0;
+  fxid = -1;
+#endif
 
   fieldnames[0] = "ID";
   fieldnames[1] = "Name";
   fieldnames[2] = "Status";
+  fieldnames[3] = "ForceFeedbackSupported";
 }
 
 octave_joystick::octave_joystick (const octave_joystick &m)
@@ -77,7 +83,7 @@ octave_joystick::~octave_joystick (void)
 }
 
 bool
-octave_joystick::create (int id)
+octave_joystick::create (int id, bool force)
 {
   close ();
 
@@ -100,6 +106,50 @@ octave_joystick::create (int id)
 
       d.id = id;
 
+      // haptic ?
+#ifdef SDL_INIT_HAPTIC
+      if (force)
+        {
+          haptic = 0;
+          if(SDL_JoystickIsHaptic(dev))
+            {
+              haptic = SDL_HapticOpenFromJoystick(dev);
+              if (haptic)
+                {
+                  unsigned int fx = SDL_HapticQuery(haptic);
+                  d.nforce = SDL_HapticNumAxes(haptic);
+
+		  SDL_HapticEffect *efx = &hfx;
+		  SDL_zerop(efx);
+                  if (fx & (SDL_HAPTIC_SINE|SDL_HAPTIC_TRIANGLE))
+                    {
+                      if(fx & SDL_HAPTIC_SINE) efx->type = SDL_HAPTIC_SINE;
+		      else efx->type = SDL_HAPTIC_TRIANGLE;
+                      efx->periodic.direction.type = SDL_HAPTIC_SPHERICAL;
+                      efx->periodic.period = 1000;
+                      efx->periodic.magnitude = 0x4000;
+                      efx->periodic.length = 5000;
+                      efx->periodic.attack_length = 0;
+                      efx->periodic.fade_length = 0;
+
+                      fxid = SDL_HapticNewEffect(haptic, efx);
+                    }
+                }
+            }
+
+	  if (haptic == 0)
+            {
+              warning_with_id("joystick:no-force-feedback", "Could not initialize forcefeedback for this joystick");
+            }
+        }
+#else
+      if (force && !warn_joystick)
+        {
+          warning_with_id("joystick:no-force-feedback", "Forcefeedback not available");
+          // only warn about notavaiable once
+          warn_joystick = true;
+	}
+#endif
       info = d;
     }
 
@@ -133,6 +183,50 @@ octave_joystick::button (int id)
       return val;
     }
 
+  return 0;
+}
+
+int
+octave_joystick::force (double forces[3])
+{
+  process_events();
+
+#if SDL_INIT_HAPTIC
+  if (haptic && fxid >= 0)
+    {
+      //x,y
+      double d1 = 0;
+      if (forces[1] == 0)
+        d1 = 0;
+      else
+        d1 = std::atan(forces[0]/forces[1]);
+
+      d1 = d1 * 180.0 / 3.14;
+      d1 -= 90;
+      if (d1 < 0) d1 =    d1 + 360;
+      if (d1 >= 360) d1 = d1 - 360;
+
+      double f1 = std::sqrt(forces[1]*forces[1] + forces[0]*forces[0]);
+      f1 = f1 / 1.5;
+
+      // NOTE: need work out a direction for down based on force abs(fwd) * updown
+      
+      double f2 = forces[2];
+
+      SDL_HapticStopEffect(haptic, fxid);
+
+      hfx.periodic.direction.dir[0] = d1*100;
+      // TODO
+      hfx.periodic.direction.dir[1] = 0;
+      hfx.periodic.magnitude = (Sint16)(f1*32767.0f);
+      if (SDL_HapticUpdateEffect(haptic, fxid, &hfx) < 0)
+        {
+          return 0;
+        }
+
+      return SDL_HapticRunEffect(haptic, fxid, 1) == 0;
+    }
+#endif
   return 0;
 }
 
@@ -174,10 +268,16 @@ octave_joystick::caps () const
 void
 octave_joystick::close ()
 {
- if (dev)
-   SDL_JoystickClose(dev);
- dev = 0;
- info.id = 0;
+#ifdef SDL_INIT_HAPTIC
+  if (haptic)
+    SDL_HapticClose(haptic);
+  haptic = 0;
+#endif
+
+  if (dev)
+    SDL_JoystickClose(dev);
+  dev = 0;
+  info.id = 0;
 }
 
 octave_base_value *
@@ -252,6 +352,10 @@ octave_joystick::subsref (const std::string& type, const std::list<octave_value_
           {
             retval(0) = octave_value(info.name);
           }
+	else if (propname == "ForceFeedbackSupported")
+          {
+            retval(0) = octave_value(info.nforce > 0);
+	  }
 	else if (propname == "Status")
           {
             if (dev)
@@ -313,6 +417,20 @@ std::vector<joystick_dev_info> octave_joystick::listAvailableDevices()
 
           d.id = 1+i;
 
+#ifdef SDL_INIT_HAPTIC
+          if (SDL_JoystickIsHaptic(joy))
+            {
+              SDL_Haptic * haptic = 0;
+              haptic = SDL_HapticOpenFromJoystick(joy);
+              if (haptic)
+                {
+                  // only get axis if we also support rumble
+		  if (SDL_HapticRumbleSupported(haptic) == SDL_TRUE)
+                    d.nforce = SDL_HapticNumAxes(haptic);
+                  SDL_HapticClose(haptic);
+                }
+            }
+#endif
           devs.push_back(d);
 
           SDL_JoystickClose(joy);
@@ -330,11 +448,17 @@ void init_types(void)
     {
       type_loaded = true;
       octave_joystick::register_type ();
-
+#ifdef SDL_INIT_HAPTIC
+      if(SDL_Init(SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC) != 0)
+        {
+	   error("error in sdl_init: %s\n", SDL_GetError() );
+        }
+#else
       if(SDL_Init(SDL_INIT_JOYSTICK) != 0)
         {
 	   error("error in sdl_init: %s\n", SDL_GetError() );
         }
+#endif
       else
         {
 #if SDL_MAJOR_VER < 2

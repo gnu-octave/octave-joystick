@@ -141,8 +141,8 @@ A list of available joysticks available can be obtained using the vrjoysticklist
 
 @example
 > vrjoysticklist 
-id name
- 1 logitech dual action
+id name                   forcefeedbacksupported
+ 1 logitech dual action   0
 @end example
 
 The ID value is then used to create a joystick object.

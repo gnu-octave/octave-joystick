@@ -1,4 +1,4 @@
-// Copyright (C) 2021 John Donoghue <john.donoghue@ieee.org>
+// Copyright (C) 2021-2022 John Donoghue <john.donoghue@ieee.org>
 //
 // This program is free software; you can redistribute it and/or modify it under
 // the terms of the GNU General Public License as published by the Free Software
@@ -40,8 +40,9 @@ public:
   int nhats;
   int nbuttons;
   int nballs;
+  int nforce;
 
-  joystick_dev_info() { id=0; name=""; naxis=nhats=nbuttons=nballs=0;};
+  joystick_dev_info() { id=0; name=""; naxis=nhats=nbuttons=nballs=nforce=0;};
   virtual ~joystick_dev_info() {}
 };
 
@@ -51,7 +52,7 @@ public:
   octave_joystick();
   ~octave_joystick();
 
-  bool create(int id);
+  bool create(int id, bool force=false);
   void close();
 
   /**
@@ -90,7 +91,7 @@ public:
   double axis(int id);
   int button(int id);
   int pov(int id);
-  //int force(int id, double f);
+  int force(double f[3]);
   joystick_dev_info caps() const;
 
   static std::vector<joystick_dev_info> listAvailableDevices();
@@ -101,6 +102,11 @@ private:
 
   joystick_dev_info info;
   SDL_Joystick *dev;
+#ifdef SDL_INIT_HAPTIC
+  SDL_Haptic *haptic;
+  SDL_HapticEffect hfx;
+  int fxid;
+#endif
 
   DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };

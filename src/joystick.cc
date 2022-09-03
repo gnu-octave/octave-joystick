@@ -47,6 +47,7 @@ private function of __joystick__\n \
 
   Cell name (dim_vector (1, devs.size()));
   Cell id (dim_vector (1, devs.size()));
+  Cell ff (dim_vector (1, devs.size()));
 
   for(size_t i=0; i<devs.size(); i++)
     {
@@ -54,11 +55,13 @@ private function of __joystick__\n \
 
       name(i) = dev.name;
       id(i) = dev.id;
+      ff(i) = (dev.nforce > 0);
     }
 
   octave_map devinfo;
   devinfo.setfield("ID", id);
   devinfo.setfield("Name", name);
+  devinfo.setfield("ForceFeedbackSupported", ff);
 
   return octave_value(devinfo);
 }
@@ -189,6 +192,82 @@ Private function of __joystick__\n \
   return octave_value(dev->pov(id));
 }
 
+// PKG_ADD: autoload ("__joystick_force__", "__joystick__.oct");
+DEFUN_DLD (__joystick_force__, args, nargout,
+"-*- texinfo -*-\n\
+@deftypefn {Package} {} __joystick_force__ ()\n \
+Private function of __joystick__\n \
+\n \
+@end deftypefn")
+{
+
+  octave_value_list retval;
+
+  if (3 != args.length())
+    {
+      print_usage();
+      return retval;
+    }
+
+  if (args (0).type_id () != octave_joystick::static_type_id ())
+    {
+      error ("Expected joystick device");
+      return retval;
+    }
+
+  if (!args(1).OV_ISNUMERIC())
+    {
+      error ("Expected numeric joystick axis id");
+      return octave_value();
+    }
+
+  if (!args(2).OV_ISNUMERIC())
+    {
+      error ("Expected numeric joystick forcefeedback value");
+      return octave_value();
+    }
+
+  double ax[3] = {0.0};
+
+  if (args (1).is_matrix_type() && args(1).numel() > 1)
+    {
+      Array<int> di = args (1).vector_value ();
+      Array<double> df = args (2).vector_value ();
+      for(int i=0;i<(int)di.numel();i++)
+      {
+	 int id = di(i);
+	 if(id >= 1 && id < 4)
+	 {
+	    ax[id-1] = df(i);
+	 }
+      }
+    }
+  else
+  {
+    int id = args(1).int_value ();
+    double force = args(2).double_value ();
+
+    if(id >= 1 && id < 4)
+      {
+        ax[id-1] = force;
+      }
+  }
+
+  for (int i=0;i<3;i++)
+    {
+      if (ax[i] < -1 || ax[i] > 1.0)
+        {
+          error ("expected forcefeedback values to be between -1 .. 1.");
+	  return octave_value();
+        } 
+    }
+
+  octave_joystick * dev = dynamic_cast<octave_joystick*>(args (0).internal_rep ());
+
+  return octave_value(dev->force(ax));
+}
+
+
 // PKG_ADD: autoload ("__joystick_caps__", "__joystick__.oct");
 DEFUN_DLD (__joystick_caps__, args, nargout,
 "-*- texinfo -*-\n\
@@ -220,7 +299,7 @@ Private function of __joystick__\n \
   devinfo.setfield("Axes", octave_value(info.naxis));
   devinfo.setfield("Buttons", octave_value(info.nbuttons));
   devinfo.setfield("POVs", octave_value(info.nhats));
-  devinfo.setfield("Forces", octave_value(0));
+  devinfo.setfield("Forces", octave_value(info.nforce));
 
   return octave_value(devinfo);
 }
@@ -265,7 +344,7 @@ Private function of __joystick__\n \
 @end deftypefn")
 {
 
-  if ( 1 != args.length ())
+  if ( 2 != args.length ())
     {
       print_usage();
       return octave_value ();
@@ -286,11 +365,18 @@ Private function of __joystick__\n \
       return octave_value();
     }
 
+  if (!args(1).OV_ISNUMERIC() && !args(1).OV_ISLOGICAL())
+    {
+      error ("Expected joystick forcefeedback boolean");
+      return octave_value();
+    }
+  int force = args(1).int_value ();
+
   init_types ();
   
   octave_joystick * retvalue = new octave_joystick ();
 
-  if ( retvalue->create (id)  == false )
+  if ( retvalue->create (id, force==1)  == false )
     {
       error ("creating joystick: %s\n", SDL_GetError());
       delete retvalue;

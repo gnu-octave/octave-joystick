@@ -16,14 +16,16 @@
 
 ## -*- texinfo -*-
 ## @deftypefn {} {@var{joy} =} force (@var{joy}, @var{id}, @var{forcevalue})
-## Get the value of button @var{id} on joystick @var{joy}.
-##
-## Currently not implemented except as a stub
+## Apply forcefeedback on axis @var{id} on joystick @var{joy}.
 ##
 ## @subsubheading Inputs
 ## @var{joy} - a previously opened joystick object@*
-## @var{id} - a positive numeric id for the joystick button to use@*
-## @var{forcevalue} - force value to use@*
+## @var{id} - a positive numeric id for the joystick forcefeed axis to use@*
+## @var{forcevalue} - force value to use, values should be between -1 .. 1@*
+##
+## If @var{id} is a vector of axis ids, @var{forcevalue} is expected to be a
+## single value applied to all of the specified axis or a vector of the same size
+## as @var{id}, with a value for  each axis.
 ##
 ## @subsubheading Outputs
 ## None
@@ -31,6 +33,24 @@
 ## @seealso{vrjoystick}
 ## @end deftypefn
 
-function force(varargin)
-  warning("force not implmented yet");
+function force(joy, id, f)
+  if nargin != 3 || !isnumeric(id)
+    print_usage();
+  endif
+
+  if isvector(id) && length(id) > 1
+    fs = zeros(1,length(id));
+    for i = 1:length(id)
+      if isvector(f) && length(f) > 1
+        fs(i) = f(i);
+      else
+        fs(i) = f;
+      endif
+      #__joystick_force__(joy, id(i), fs(i));
+    endfor
+    __joystick_force__(joy, id, fs);
+  else
+    __joystick_force__(joy, id, f);
+  endif
+
 endfunction
