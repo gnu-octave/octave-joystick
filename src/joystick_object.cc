@@ -295,7 +295,7 @@ octave_joystick::clone (void) const
 octave_base_value *
 octave_joystick::unique_clone (void)
 {
-  count++;
+  OV_COUNT++;
   return this;
 }
 
@@ -366,7 +366,7 @@ octave_joystick::subsref (const std::string& type, const std::list<octave_value_
 	else if (type.length() > 1 && type[1] == '(')
           {
             octave_value_list ovl;
-            count++;
+            OV_COUNT++;
             ovl(0) = octave_value (this);
             std::list<octave_value_list>::const_iterator it = idx.begin ();
             if (it != idx.end())
