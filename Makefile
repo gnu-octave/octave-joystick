@@ -45,7 +45,7 @@ DEPENDS :=
 
 
 ## Detect which VCS is used
-vcs := $(if $(wildcard $(PACKAGE_REPO_DIR)/.hg),hg,$(if $(wildcard $(PACKAGE_REPO_DIR)/.git),git,unknown))
+vcs := $(if $(wildcard .hg),hg,$(if $(wildcard .git),git,unknown))
 ifeq ($(vcs),hg)
 release_dir_dep := .hg/dirstate
 HG           := hg
