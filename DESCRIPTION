@@ -1,6 +1,6 @@
 Name: joystick
-Version: 0.0.2
-Date: 2022-09-12
+Version: 0.0.3
+Date: 2023-10-12
 Author: John Donoghue <john.donoghue@ieee.org>
 Maintainer: John Donoghue <john.donoghue@ieee.org>
 Title: Octave Joystick Toolkit

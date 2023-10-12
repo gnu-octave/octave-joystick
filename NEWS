@@ -1,9 +1,16 @@
+Summary of important user-visible changes for version 0.0.3:
+------------------------------------------------------------
+
+  ** Updated for Octave 8+ compatibility
+
+  ** Minordoc updates
+
 Summary of important user-visible changes for version 0.0.2:
 ------------------------------------------------------------
 
   ** Minor documentation updates and added qt5 user manual
 
-  ** added initial forcefeedback functionality
+  ** added initial force-feedback functionality
 
 Summary of important user-visible changes for version 0.0.1:
 ------------------------------------------------------------
