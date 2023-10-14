@@ -48,6 +48,8 @@ Usage:
 Documentation
 ==============
 
+* https://sourceforge.net/p/octave-joystick/wiki/User%20Manual/
+
 Known limitations and bugs
 ==========================
 
