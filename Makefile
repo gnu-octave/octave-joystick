@@ -132,7 +132,8 @@ endif
 
 #	cp "$@/examples/"*.m "$@/inst/"
 	$(MAKE) PACKAGE_REPO_DIR=$(PACKAGE_REPO_DIR) -C "$@" docs
-	cd "$@" && rm -rf "devel/" && rm -rf "deprecated/" && $(RM) -f doc/mkfuncdocs.py doc/mkqhcp.py
+	cd "$@" && rm -rf "devel/" && rm -rf "deprecated/" 
+	#&& $(RM) -f doc/mkfuncdocs.py doc/mkqhcp.py
 #	cd "$@/src" && aclocal -Im4 && autoconf && $(RM) -r "src/autom4te.cache"
 	cd "$@/src" && $(SHELL) ./autogen.sh && $(RM) -r "autom4te.cache"
 	cd "$@" && $(RM) Makefile
