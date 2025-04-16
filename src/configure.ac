@@ -31,6 +31,7 @@ AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 
 # Checks for programs.
+AC_CHECK_PROG(PKG_CONFIG, pkg-config, pkg-config)
 AC_PROG_GREP
 AC_PROG_SED
 AC_PROG_CXX
@@ -209,29 +210,54 @@ LDFLAGS=$save_altsyms_LDFLAGS
 LIBS=$save_altsyms_LIBS
 
 
-# SDL/SDL2
-AC_PATH_PROGS([SDL_CONFIG], [sdl2-config sdl-config], [no])
-if test "$SDL_CONFIG" == "no" ; then
-  AC_MSG_ERROR("*** No sdl-config or sdl2-config found")
+# SDL/SDL2/SDL3
+AC_MSG_CHECKING([for sdlX])
+SDL_LIBS=
+if test  "x$SDL_LIBS" == "x" ; then
+ if test  "x$PKG_CONFIG" != "x" ; then
+  for v in [ sdl3 sdl2 sdl ]; do
+    TLFLAGS=`$PKG_CONFIG --silence-errors --libs $v`
+    TCFLAGS=`$PKG_CONFIG --silence-errors --cflags $v`
+    if test "x$TLFLAGS" != "x"; then
+      AC_MSG_RESULT([$v])
+      SDL_LIBS=$TLFLAGS
+      SDL_CFLAGS=$TCFLAGS
+      SDL_PREFIX=`$PKG_CONFIG --variable=prefix $v`
+      SDL_MAJOR_VER=`$PKG_CONFIG --modversion $v  | $SED -n 's/^\([[0-9\]]\).*/\1/p'`
+      break
+    fi
+  done
+  if test  "x$SDL_LIBS" == "x" ; then
+      AC_MSG_RESULT([none])
+  fi
+ fi
+ if test  "x$SDL_LIBS" == "x" ; then
+  AC_PATH_PROGS([SDL_CONFIG], [sdl2-config sdl-config], [no])
+  if test "$SDL_CONFIG" == "no" ; then
+   AC_MSG_ERROR("*** No sdl-config or sdl2-config found")
+  fi
+
+  SDL_CFLAGS=`$SDL_CONFIG --cflags`
+  SDL_LIBS=`$SDL_CONFIG --libs`
+  SDL_PREFIX=`$SDL_CONFIG --prefix`
+
+  SDL_MAJOR_VER=`$SDL_CONFIG --version | $SED -n 's/^\([[0-9\]]\).*/\1/p'`
+ fi
 fi
 
-SDL_CFLAGS=`$SDL_CONFIG --cflags`
-SDL_LIBS=`$SDL_CONFIG --libs`
-SDL_PREFIX=`$SDL_CONFIG --prefix`
+AC_DEFINE_UNQUOTED([SDL_MAJOR_VER],[$SDL_MAJOR_VER],[Major version number of SDL])
 
 AC_SUBST(SDL_PREFIX)
 AC_SUBST(SDL_CFLAGS)
 AC_SUBST(SDL_LIBS)
 
-SDL_MAJOR_VER=`$SDL_CONFIG --version | $SED -n 's/^\([[0-9\]]\).*/\1/p'`
-AC_DEFINE_UNQUOTED([SDL_MAJOR_VER],[$SDL_MAJOR_VER],[Major version number of SDL])
 
 # check sanity for what detected
 save_sdl_CPPFLAGS="$CPPFLAGS"
 save_sdl_LIBS="$LIBS"
 CPPFLAGS="$CPPFLAGS $SDL_CFLAGS"
 LIBS="$LIBS $SDL_LIBS"
-AC_CHECK_HEADERS([SDL.h], [], AC_MSG_ERROR([SDL.h is required]))
+AC_CHECK_HEADERS([SDL3/SDL.h SDL2/SDL.h SDL.h], [], [])
 # cant use in windows as needs a SDL_main defined
 #AC_CHECK_FUNC([SDL_Quit], [], [AC_MSG_ERROR([Could not find SDL_Quit])])
 LIBS=$save_sdl_LIBS

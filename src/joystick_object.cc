@@ -21,18 +21,25 @@
 #endif
 
 #include "joystick_object.h"
-#include <SDL.h>
 
 static bool have_joystick = false;
 static bool warn_joystick = false;
 
 static void process_events()
 {
+#if SDL_MAJOR_VER > 2
+  if (SDL_JoystickEventsEnabled())
+    {
+      SDL_UpdateJoysticks();
+      have_joystick = true;
+    }
+#else
   if (SDL_JoystickEventState(SDL_QUERY) == SDL_IGNORE)
     {
       SDL_JoystickUpdate();
       have_joystick = true;
     }
+#endif
   else
     {
       SDL_Event event;
@@ -41,11 +48,18 @@ static void process_events()
           // do nothing with them - just flag we have something
           switch(event.type)
             {
+#if SDL_MAJOR_VER > 2
+              case SDL_EVENT_JOYSTICK_AXIS_MOTION:
+              case SDL_EVENT_JOYSTICK_BUTTON_DOWN:
+              case SDL_EVENT_JOYSTICK_BUTTON_UP:
+              case SDL_EVENT_JOYSTICK_HAT_MOTION:
+#else
               case SDL_JOYAXISMOTION:
               case SDL_JOYBUTTONDOWN:
               case SDL_JOYBUTTONUP:
               case SDL_JOYHATMOTION:
               case SDL_JOYBALLMOTION:
+#endif
                 have_joystick = true;
               default:
                 break;
@@ -89,20 +103,32 @@ octave_joystick::create (int id, bool force)
 
   process_events();
 
+#if SDL_MAJOR_VER > 2
+  dev = SDL_OpenJoystick(id);
+#else
   dev = SDL_JoystickOpen(id-1);
+#endif
   if(dev)
     {
       joystick_dev_info d;
-#if SDL_MAJOR_VER > 1
-      d.name = SDL_JoystickName(dev);
-#else
-      d.name = SDL_JoystickName(id-1);
-#endif
+#if SDL_MAJOR_VER > 2
+      d.name = SDL_GetJoystickName(dev);
 
+      d.naxis = SDL_GetNumJoystickAxes(dev);
+      d.nbuttons = SDL_GetNumJoystickButtons(dev);
+      d.nballs = SDL_GetNumJoystickBalls(dev);
+      d.nhats = SDL_GetNumJoystickHats(dev);
+#else
+ #if SDL_MAJOR_VER > 1
+      d.name = SDL_JoystickName(dev);
+ #else
+      d.name = SDL_JoystickName(id-1);
+ #endif
       d.naxis = SDL_JoystickNumAxes(dev);
       d.nbuttons = SDL_JoystickNumButtons(dev);
       d.nballs = SDL_JoystickNumBalls(dev);
       d.nhats = SDL_JoystickNumHats(dev);
+#endif
 
       d.id = id;
 
@@ -111,6 +137,33 @@ octave_joystick::create (int id, bool force)
       if (force)
         {
           haptic = 0;
+#if SDL_MAJOR_VER > 2
+          if(SDL_IsJoystickHaptic(dev))
+            {
+              haptic = SDL_OpenHapticFromJoystick(dev);
+              if (haptic)
+                {
+                  unsigned int fx = SDL_GetHapticFeatures(haptic);
+                  d.nforce = SDL_GetNumHapticAxes(haptic);
+
+		  SDL_HapticEffect *efx = &hfx;
+		  SDL_zerop(efx);
+                  if (fx & (SDL_HAPTIC_SINE|SDL_HAPTIC_TRIANGLE))
+                    {
+                      if(fx & SDL_HAPTIC_SINE) efx->type = SDL_HAPTIC_SINE;
+		      else efx->type = SDL_HAPTIC_TRIANGLE;
+                      efx->periodic.direction.type = SDL_HAPTIC_SPHERICAL;
+                      efx->periodic.period = 1000;
+                      efx->periodic.magnitude = 0x4000;
+                      efx->periodic.length = 5000;
+                      efx->periodic.attack_length = 0;
+                      efx->periodic.fade_length = 0;
+
+                      fxid = SDL_CreateHapticEffect(haptic, efx);
+                    }
+                }
+            }
+#else
           if(SDL_JoystickIsHaptic(dev))
             {
               haptic = SDL_HapticOpenFromJoystick(dev);
@@ -136,7 +189,7 @@ octave_joystick::create (int id, bool force)
                     }
                 }
             }
-
+#endif
 	  if (haptic == 0)
             {
               warning_with_id("joystick:no-force-feedback", "Could not initialize forcefeedback for this joystick");
@@ -165,7 +218,11 @@ octave_joystick::axis (int id)
     {
       Sint16 val = 0;
       if(have_joystick)
+#if SDL_MAJOR_VER > 2
+        val = SDL_GetJoystickAxis(dev, id-1);
+#else
         val = SDL_JoystickGetAxis(dev, id-1);
+#endif
       return double(val)/32767;
     }
 
@@ -179,7 +236,11 @@ octave_joystick::button (int id)
 
   if(dev && info.nbuttons >= id)
     {
+#if SDL_MAJOR_VER > 2
+      int val = SDL_GetJoystickButton(dev, id-1);
+#else
       int val = SDL_JoystickGetButton(dev, id-1);
+#endif
       return val;
     }
 
@@ -213,6 +274,20 @@ octave_joystick::force (double forces[3])
       
       double f2 = forces[2];
 
+#if SDL_MAJOR_VER > 2
+      SDL_StopHapticEffect(haptic, fxid);
+
+      hfx.periodic.direction.dir[0] = d1*100;
+      // TODO
+      hfx.periodic.direction.dir[1] = 0;
+      hfx.periodic.magnitude = (Sint16)(f1*32767.0f);
+      if (SDL_UpdateHapticEffect(haptic, fxid, &hfx) < 0)
+        {
+          return 0;
+        }
+
+      return SDL_RunHapticEffect(haptic, fxid, 1) == 0;
+#else
       SDL_HapticStopEffect(haptic, fxid);
 
       hfx.periodic.direction.dir[0] = d1*100;
@@ -225,6 +300,7 @@ octave_joystick::force (double forces[3])
         }
 
       return SDL_HapticRunEffect(haptic, fxid, 1) == 0;
+#endif
     }
 #endif
   return 0;
@@ -237,7 +313,11 @@ octave_joystick::pov (int id)
 
   if(dev && info.nhats >= id)
     {
+#if SDL_MAJOR_VER > 2
+      int val = SDL_GetJoystickHat(dev, id-1);
+#else
       int val = SDL_JoystickGetHat(dev, id-1);
+#endif
     
       switch(val)
         {
@@ -270,12 +350,20 @@ octave_joystick::close ()
 {
 #ifdef SDL_INIT_HAPTIC
   if (haptic)
+#if SDL_MAJOR_VER > 2
+    SDL_CloseHaptic(haptic);
+#else
     SDL_HapticClose(haptic);
+#endif
   haptic = 0;
 #endif
 
   if (dev)
+#if SDL_MAJOR_VER > 2
+    SDL_CloseJoystick(dev);
+#else
     SDL_JoystickClose(dev);
+#endif
   dev = 0;
   info.id = 0;
 }
@@ -395,21 +483,61 @@ std::vector<joystick_dev_info> octave_joystick::listAvailableDevices()
 
   process_events();
 
+#if SDL_MAJOR_VER > 2
+  int jcount = 0;
+  SDL_JoystickID *ids = SDL_GetJoysticks(&jcount);
+#else
   int jcount = SDL_NumJoysticks();
+#endif
   SDL_Joystick * joy = 0;
 
+#if SDL_MAJOR_VER > 2
+  for(int i=0;i<jcount; i++)
+    {
+      joy = SDL_OpenJoystick(i+1);
+      if (joy)
+        {
+          joystick_dev_info d;
+
+          d.name = SDL_GetJoystickName(joy);
+          d.naxis = SDL_GetNumJoystickAxes(joy);
+          d.nbuttons = SDL_GetNumJoystickButtons(joy);
+          d.nballs = SDL_GetNumJoystickBalls(joy);
+          d.nhats = SDL_GetNumJoystickHats(joy);
+          d.id = 1+i;
+
+#ifdef SDL_INIT_HAPTIC
+          if (SDL_IsJoystickHaptic(joy))
+            {
+              SDL_Haptic * haptic = 0;
+              haptic = SDL_OpenHapticFromJoystick(joy);
+              if (haptic)
+                {
+                  // only get axis if we also support rumble
+		  if (SDL_HapticRumbleSupported(haptic))
+                    d.nforce = SDL_GetNumHapticAxes(haptic);
+                  SDL_CloseHaptic(haptic);
+                }
+            }
+#endif
+          devs.push_back(d);
+
+          SDL_CloseJoystick(joy);
+        }
+    }
+#else
   for(int i=0;i<jcount; i++)
     {
       joy = SDL_JoystickOpen(i);
       if (joy)
         {
           joystick_dev_info d;
-#if SDL_MAJOR_VER > 1
-          d.name = SDL_JoystickName(joy);
-#else
-          d.name = SDL_JoystickName(i);
-#endif
 
+  #if SDL_MAJOR_VER > 1
+          d.name = SDL_JoystickName(joy);
+  #else
+          d.name = SDL_JoystickName(i);
+  #endif
           d.naxis = SDL_JoystickNumAxes(joy);
           d.nbuttons = SDL_JoystickNumButtons(joy);
           d.nballs = SDL_JoystickNumBalls(joy);
@@ -425,7 +553,7 @@ std::vector<joystick_dev_info> octave_joystick::listAvailableDevices()
               if (haptic)
                 {
                   // only get axis if we also support rumble
-		  if (SDL_HapticRumbleSupported(haptic) == SDL_TRUE)
+		  if (SDL_HapticRumbleSupported(haptic))
                     d.nforce = SDL_HapticNumAxes(haptic);
                   SDL_HapticClose(haptic);
                 }
@@ -436,6 +564,7 @@ std::vector<joystick_dev_info> octave_joystick::listAvailableDevices()
           SDL_JoystickClose(joy);
         }
     }
+#endif
 
   return devs;
 }
@@ -449,12 +578,20 @@ void init_types(void)
       type_loaded = true;
       octave_joystick::register_type ();
 #ifdef SDL_INIT_HAPTIC
-      if(SDL_Init(SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC) != 0)
+#if SDL_MAJOR_VER > 2
+      if(! SDL_Init(SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC))
+#else
+      if(SDL_Init(SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC) !=0)
+#endif
         {
-	   error("error in sdl_init: %s\n", SDL_GetError() );
+	   error("error in sdl_inith: %s\n", SDL_GetError() );
         }
 #else
+#if SDL_MAJOR_VER > 2
+      if(! SDL_Init(SDL_INIT_JOYSTICK))
+#else
       if(SDL_Init(SDL_INIT_JOYSTICK) != 0)
+#endif
         {
 	   error("error in sdl_init: %s\n", SDL_GetError() );
         }

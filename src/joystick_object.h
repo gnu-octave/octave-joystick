@@ -29,7 +29,21 @@
 
 void init_types(void);
 
-#include <SDL.h>
+#if SDL_MAJOR_VER == 3
+ #ifdef HAVE_SDL3_SDL_H
+  #include <SDL3/SDL.h>
+ #else
+  #include <SDL.h>
+ #endif
+#elif  SDL_MAJOR_VER == 2
+ #ifdef HAVE_SDL2_SDL_H
+  #include <SDL2/SDL.h>
+ #else
+  #include <SDL.h>
+ #endif
+#else
+  #include <SDL.h>
+#endif
 
 class joystick_dev_info
 {
