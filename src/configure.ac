@@ -29,6 +29,7 @@ AC_CONFIG_MACRO_DIRS([m4])
 
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
+target_arch="${target_cpu}-${target_os}"
 
 # Checks for programs.
 AC_CHECK_PROG(PKG_CONFIG, pkg-config, pkg-config)
@@ -69,12 +70,11 @@ save_altsyms_LIBS="$LIBS"
 OCTINCLUDEDIR="${OCTINCLUDEDIR:-`$MKOCTFILE -p OCTINCLUDEDIR`}/.."
 OCTLIBDIR=${OCTLIBDIR:-`$MKOCTFILE -p OCTLIBDIR`}
 
-if test "X${IGNORE_MINGW_PATH_MODIFICATION}" == "X"; then
+if test "X${IGNORE_MINGW_PATH_MODIFICATION}" == "X" -a "x${MSYSTEM}" != "x" ; then
   MSYSTEM="${MSYSTEM}"
 else
   MSYSTEM="none"
 fi
-
 case X$MSYSTEM in
   XMINGW64*)
     OCTAVE_HOME=`${MKOCTFILE} -p OCTAVE_HOME | $SED 's,\\\\,/,g'`
@@ -209,32 +209,38 @@ CXXFLAGS=$save_altsyms_CXXFLAGS
 LDFLAGS=$save_altsyms_LDFLAGS
 LIBS=$save_altsyms_LIBS
 
-
 # SDL/SDL2/SDL3
-AC_MSG_CHECKING([for sdlX])
-SDL_LIBS=
-if test  "x$SDL_LIBS" == "x" ; then
- if test  "x$PKG_CONFIG" != "x" ; then
-  for v in [ sdl3 sdl2 sdl ]; do
-    TLFLAGS=`$PKG_CONFIG --silence-errors --libs $v`
-    TCFLAGS=`$PKG_CONFIG --silence-errors --cflags $v`
-    if test "x$TLFLAGS" != "x"; then
-      AC_MSG_RESULT([$v])
-      SDL_LIBS=$TLFLAGS
-      SDL_CFLAGS=$TCFLAGS
-      SDL_PREFIX=`$PKG_CONFIG --variable=prefix $v`
-      SDL_MAJOR_VER=`$PKG_CONFIG --modversion $v  | $SED -n 's/^\([[0-9\]]\).*/\1/p'`
-      break
-    fi
-  done
-  if test  "x$SDL_LIBS" == "x" ; then
-      AC_MSG_RESULT([none])
-  fi
- fi
- if test  "x$SDL_LIBS" == "x" ; then
-  AC_PATH_PROGS([SDL_CONFIG], [sdl2-config sdl-config], [no])
-  if test "$SDL_CONFIG" == "no" ; then
-   AC_MSG_ERROR("*** No sdl-config or sdl2-config found")
+# to override detection, set
+# SDL_LIBS, SDL_CFLAGS and SDL_MAJOR_VER
+
+# cmake detection seems to work fine for windows but NOT
+# for linux.
+# pkg-config detection works ok in both unless there
+# are spaces in the path
+# so ... try cmake in windws, then everything else
+if test  "x$SDL_LIBS" == "x" -a "x$MSYSTEM" != "xnone" ; then
+ CMAKE_FIND_PACKAGE([SDL3], [CXX], , , , [target_arch])
+ if test  "x$SDL3_LIBS" != "x" ; then
+  SDL_LIBS="$SDL3_LIBS"
+  SDL_CFLAGS="$SDL3_CXXFLAGS"
+  SDL_MAJOR_VER=3
+ else
+  CMAKE_FIND_PACKAGE([SDL2], [CXX], , , , [target_arch])
+  if test  "x$SDL2_LIBS" != "x" ; then
+   SDL_LIBS="$SDL2_LIBS"
+   SDL_CFLAGS="$SDL2_CXXFLAGS"
+   SDL_MAJOR_VER=2
+  else
+   # callback to sdl2-config, sdl-config
+   AC_PATH_PROGS([SDL_CONFIG], [sdl2-config sdl-config], [no])
+   if test "$SDL_CONFIG" == "no" ; then
+    AC_MSG_ERROR("*** No sdl-config or sdl2-config found")
+   fi
+
+   SDL_CFLAGS=`$SDL_CONFIG --cflags`
+   SDL_LIBS=`$SDL_CONFIG --libs`
+
+   SDL_MAJOR_VER=`$SDL_CONFIG --version | $SED -n 's/^\([[0-9\]]\).*/\1/p'`
   fi
 
   SDL_CFLAGS=`$SDL_CONFIG --cflags`
@@ -245,14 +251,45 @@ if test  "x$SDL_LIBS" == "x" ; then
  fi
 fi
 
+if test "x$SDL_LIBS" == "x" ; then
+  AC_MSG_CHECKING([for sdl])
+
+  for v in [ sdl3 sdl2 sdl ]; do
+    TLFLAGS=`$PKG_CONFIG --silence-errors --libs $v`
+    TCFLAGS=`$PKG_CONFIG --silence-errors --cflags $v`
+    if test "x$TLFLAGS" != "x"; then
+      AC_MSG_RESULT([$v])
+      SDL_LIBS=$TLFLAGS
+      SDL_CFLAGS=$TCFLAGS
+      SDL_MAJOR_VER=`$PKG_CONFIG --modversion $v  | $SED -n 's/^\([[0-9\]]\).*/\1/p'`
+      break
+    fi
+  done
+  if test  "x$SDL_LIBS" == "x" ; then
+      AC_MSG_RESULT([none])
+  fi
+fi
+
+if test  "x$SDL_LIBS" == "x" ; then
+   # fallback to sdl2-config, sdl-config
+   AC_PATH_PROGS([SDL_CONFIG], [sdl2-config sdl-config], [no])
+   if test "$SDL_CONFIG" == "no" ; then
+    AC_MSG_ERROR("*** No sdl-config or sdl2-config found")
+   fi
+
+   SDL_CFLAGS=`$SDL_CONFIG --cflags`
+   SDL_LIBS=`$SDL_CONFIG --libs`
+
+   SDL_MAJOR_VER=`$SDL_CONFIG --version | $SED -n 's/^\([[0-9\]]\).*/\1/p'`
+fi
+ 
 AC_DEFINE_UNQUOTED([SDL_MAJOR_VER],[$SDL_MAJOR_VER],[Major version number of SDL])
 
-AC_SUBST(SDL_PREFIX)
+#AC_SUBST(SDL_PREFIX)
 AC_SUBST(SDL_CFLAGS)
 AC_SUBST(SDL_LIBS)
 
-
-# check sanity for what detected
+# for header
 save_sdl_CPPFLAGS="$CPPFLAGS"
 save_sdl_LIBS="$LIBS"
 CPPFLAGS="$CPPFLAGS $SDL_CFLAGS"

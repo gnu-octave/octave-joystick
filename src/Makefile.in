@@ -17,7 +17,7 @@ all: $(OCT)
 	$(MKOCTFILE) $(CFLAGS) -c $^
 
 %.oct: $(OBJ)
-	$(MKOCTFILE) $^ $(LFLAGS) $(TCPLIBS) -o $@
+	$(MKOCTFILE) $(CFLAGS) $(LFLAGS) $^ -o $@
 
 clean:
 	-$(RM) $(OCT) *.o
