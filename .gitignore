@@ -1,0 +1,27 @@
+# compiled files
+src/*.oct
+src/*.o
+
+# for testing
+fntests.log
+
+# release files
+release
+
+# emacs backup files
+*~
+
+# vim
+*.swp
+*.swo
+
+# autoconf
+src/configure
+src/Makefile
+src/config.log
+src/config.status
+src/config.h
+src/config.h.in
+src/aclocal.m4
+src/autom4te.cache
+src/oct-alt-includes.h
