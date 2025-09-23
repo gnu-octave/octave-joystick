@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Octave Audio Toolkit
+title: Octave Joystick Toolkit
 email: "John Donoghue <john.donoghue@ieee.org>"
 author: "John Donoghue <john.donoghue@ieee.org>"
 logo: "/assets/octave-joystick.png"
