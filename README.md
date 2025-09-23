@@ -48,7 +48,7 @@ Usage:
 Documentation
 ==============
 
-* https://sourceforge.net/p/octave-joystick/wiki/User%20Manual/
+* https://gnu-octave.github.io/octave-joystick/functions
 
 Known limitations and bugs
 ==========================

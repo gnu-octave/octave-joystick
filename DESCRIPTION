@@ -8,4 +8,4 @@ Description: Provides Joystick functions for Octave
 Categories: Math
 Depends: octave (>= 4.0.0)
 License: GPLv3+
-Url: https://sourceforge.net/projects/octave-joystick/
+Url: https://gnu-octave.github.io/octave-joystick/
