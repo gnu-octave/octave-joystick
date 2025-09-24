@@ -1,6 +1,6 @@
 Name: joystick
-Version: 0.0.3
-Date: 2023-10-12
+Version: 0.0.4
+Date: 2025-10-12
 Author: John Donoghue <john.donoghue@ieee.org>
 Maintainer: John Donoghue <john.donoghue@ieee.org>
 Title: Octave Joystick Toolkit
@@ -9,3 +9,5 @@ Categories: Math
 Depends: octave (>= 4.0.0)
 License: GPLv3+
 Url: https://gnu-octave.github.io/octave-joystick/
+Repository: https://github.com/gnu-octave/octave-jotstick/
+Tracker: https://github.com/gnu-octave/octave-joystick/issues/

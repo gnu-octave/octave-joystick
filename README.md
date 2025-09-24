@@ -6,7 +6,7 @@ The Octave joystick package provides basic joystick read/write functions
 Requirements
 ============
 
-* Octave >= 3.6.0+
+* Octave >= 4.0.0+
 
 * SDL >= 1.2
 
