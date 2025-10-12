@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_joystick/21_octavejoystickcaps/"
 pkg_name: "joystick"
-pkg_version: "0.0.3"
+pkg_version: "0.0.4"
 pkg_description: "Provides Joystick functions for Octave"
 title: "Joystick Toolkit - @octave_joystick/caps"
 category: "Joystick Functions"

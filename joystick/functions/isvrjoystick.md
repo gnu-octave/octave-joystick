@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/12_isvrjoystick/"
 pkg_name: "joystick"
-pkg_version: "0.0.3"
+pkg_version: "0.0.4"
 pkg_description: "Provides Joystick functions for Octave"
 title: "Joystick Toolkit - isvrjoystick"
 category: "Utility Functions"

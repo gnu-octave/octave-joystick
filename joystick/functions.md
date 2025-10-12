@@ -3,7 +3,7 @@ layout: "function_list"
 permalink: "/functions/"
 title: "Joystick Toolkit - Functions"
 pkg_name: "joystick"
-version: "0.0.3"
+version: "0.0.4"
 description: "Provides Joystick functions for Octave"
 categories:
 - id: "17_UtilityFunctions"

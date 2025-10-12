@@ -3,7 +3,7 @@ layout: "default"
 permalink: "/manual/"
 title: "Joystick Toolkit - Manual"
 pkg_name: "joystick"
-version: "0.0.3"
+version: "0.0.4"
 description: "Provides Joystick functions for Octave"
 navigation:
 - id: "overview"
@@ -18,21 +18,17 @@ navigation:
 - id: "manual"
   name: "Manual"
 - id: "Installing-and-loading-1"
-  name: "&nbsp;&nbsp;"
+  name: "&nbsp;&nbsp; Installing and loading"
   url: "/manual/#Installing-and-loading-1"
 - id: "Basic-Usage-Overview-1"
-  name: "&nbsp;&nbsp;"
+  name: "&nbsp;&nbsp; Basic Usage Overview"
   url: "/manual/#Basic-Usage-Overview-1"
 - id: "Function-Reference-1"
-  name: "&nbsp;&nbsp;"
+  name: "&nbsp;&nbsp; Function Reference"
   url: "/manual/#Function-Reference-1"
 ---
 <div class="top-level-extent" id="Top">
-<div class="nav-panel">
-<p>
-Next: <a href="#Installing-and-loading" accesskey="n" rel="next">Installing and loading</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
-</div>
-<h1 class="top" id="Introduction"><span>Introduction<a class="copiable-link" href="#Introduction"></a></span></h1>
+<h1 class="top" id="Introduction">Introduction</h1>
 <p>The Joystick toolkit is a set of Joystick file I/O routines for GNU Octave
 </p>
 <div class="region-contents" id="SEC_Contents">
@@ -72,11 +68,7 @@ Next: <a href="#Installing-and-loading" accesskey="n" rel="next">Installing and 
 </div>
 <hr>
 <div class="chapter-level-extent" id="Installing-and-loading">
-<div class="nav-panel">
-<p>
-Next: <a href="#Basic-Usage-Overview" accesskey="n" rel="next">Basic Usage Overview</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Introduction</a>, Up: <a href="#Top" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
-</div>
-<h2 class="chapter" id="Installing-and-loading-1"><span>1 Installing and loading<a class="copiable-link" href="#Installing-and-loading-1"></a></span></h2>
+<h2 class="chapter" id="Installing-and-loading-1">1 Installing and loading</h2>
 <a class="index-entry-id" id="index-Installing-and-loading"></a>
 <p>The Joystick toolkit must be installed and then loaded to be used.
 </p>
@@ -92,35 +84,30 @@ to successfully install the Joystick toolkit.
 </p>
 <p>The toolkit must be then be loaded once per each <abbr class="acronym">GNU</abbr> Octave session in order to use its functionality.
 </p>
-<ul class="mini-toc">
-<li><a href="#Online-Direct-install" accesskey="1">Online Direct install</a></li>
-<li><a href="#Off_002dline-install" accesskey="2">Off-line install</a></li>
-<li><a href="#Loading" accesskey="3">Loading</a></li>
-</ul>
 <div class="section-level-extent" id="Online-Direct-install">
-<h3 class="section"><span>1.1 Online Direct install<a class="copiable-link" href="#Online-Direct-install"></a></span></h3>
+<h3 class="section">1.1 Online Direct install</h3>
 <a class="index-entry-id" id="index-Online-install"></a>
 <p>With an internet connection available, the Joystick package can be installed from
 the octave-joystick website using the following command within <abbr class="acronym">GNU</abbr> Octave:
 </p>
 <div class="example">
-<pre class="example-preformatted">pkg install https://sourceforge.net/projects/octave-joystick/files/v0.0.3/joystick-0.0.3.tar.gz/download
+<pre class="example-preformatted">pkg install -forge joystick
 </pre></div>
 <p>The latest released version of the toolkit will be downloaded and installed.
 </p>
 </div>
 <div class="section-level-extent" id="Off_002dline-install">
-<h3 class="section"><span>1.2 Off-line install<a class="copiable-link" href="#Off_002dline-install"></a></span></h3>
+<h3 class="section">1.2 Off-line install</h3>
 <a class="index-entry-id" id="index-Off_002dline-install"></a>
 <p>With the Joystick toolkit package already downloaded, and in the current directory when running
 <abbr class="acronym">GNU</abbr> Octave, the package can be installed using the following command within <abbr class="acronym">GNU</abbr> Octave:
 </p>
 <div class="example">
-<pre class="example-preformatted">pkg install joystick-0.0.3.tar.gz
+<pre class="example-preformatted">pkg install joystick-0.0.4.tar.gz
 </pre></div>
 </div>
 <div class="section-level-extent" id="Loading">
-<h3 class="section"><span>1.3 Loading<a class="copiable-link" href="#Loading"></a></span></h3>
+<h3 class="section">1.3 Loading</h3>
 <a class="index-entry-id" id="index-Loading"></a>
 <p>Regardless of the method of installing the Joystick toolkit, in order to use its functions,
 the toolkit must be loaded using the pkg load command:
@@ -134,11 +121,7 @@ the toolkit must be loaded using the pkg load command:
 </div>
 </div>
 <div class="chapter-level-extent" id="Basic-Usage-Overview">
-<div class="nav-panel">
-<p>
-Next: <a href="#Function-Reference" accesskey="n" rel="next">Function Reference</a>, Previous: <a href="#Installing-and-loading" accesskey="p" rel="prev">Installing and loading</a>, Up: <a href="#Top" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
-</div>
-<h2 class="chapter" id="Basic-Usage-Overview-1"><span>2 Basic Usage Overview<a class="copiable-link" href="#Basic-Usage-Overview-1"></a></span></h2>
+<h2 class="chapter" id="Basic-Usage-Overview-1">2 Basic Usage Overview</h2>
 <a class="index-entry-id" id="index-Basic-Usage-Overview"></a>
 <p>A list of available joysticks available can be obtained using the vrjoysticklist function.
 </p>
@@ -177,35 +160,19 @@ b1 = 0
 <hr>
 </div>
 <div class="chapter-level-extent" id="Function-Reference">
-<div class="nav-panel">
-<p>
-Next: <a href="#Copying" accesskey="n" rel="next">GNU General Public License</a>, Previous: <a href="#Basic-Usage-Overview" accesskey="p" rel="prev">Basic Usage Overview</a>, Up: <a href="#Top" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
-</div>
-<h2 class="chapter" id="Function-Reference-1"><span>3 Function Reference<a class="copiable-link" href="#Function-Reference-1"></a></span></h2>
+<h2 class="chapter" id="Function-Reference-1">3 Function Reference</h2>
 <a class="index-entry-id" id="index-Function-Reference"></a>
 <p>The functions currently available in the Joystick toolkit are described below;
 </p>
-<ul class="mini-toc">
-<li><a href="#Utility-Functions" accesskey="1">Utility Functions</a></li>
-<li><a href="#Joystick-Functions" accesskey="2">Joystick Functions</a></li>
-</ul>
 <hr>
 <div class="section-level-extent" id="Utility-Functions">
-<div class="nav-panel">
-<p>
-Next: <a href="#Joystick-Functions" accesskey="n" rel="next">Joystick Functions</a>, Up: <a href="#Function-Reference" accesskey="u" rel="up">Function Reference</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
-</div>
-<h3 class="section" id="Utility-Functions-1"><span>3.1 Utility Functions<a class="copiable-link" href="#Utility-Functions-1"></a></span></h3>
+<h3 class="section" id="Utility-Functions-1">3.1 Utility Functions</h3>
 <a class="index-entry-id" id="index-Utility-Functions"></a>
-<ul class="mini-toc">
-<li><a href="#isvrjoystick" accesskey="1">isvrjoystick</a></li>
-<li><a href="#vrjoysticklist" accesskey="2">vrjoysticklist</a></li>
-</ul>
 <div class="subsection-level-extent" id="isvrjoystick">
-<h4 class="subsection"><span>3.1.1 isvrjoystick<a class="copiable-link" href="#isvrjoystick"></a></span></h4>
+<h4 class="subsection">3.1.1 isvrjoystick</h4>
 <a class="index-entry-id" id="index-isvrjoystick"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-isvrjoystick-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">retval</var> =</code> <strong class="def-name">isvrjoystick</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code><a class="copiable-link" href="#index-isvrjoystick-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-isvrjoystick-1"><span class="category-def">: </span><code class="def-type"><var class="var">retval</var> =</code> <strong class="def-name">isvrjoystick</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
 <dd><p>Check if input value is a vrjoystick object
 </p>
 <p>Function is essentially just a call of
@@ -213,30 +180,30 @@ Next: <a href="#Joystick-Functions" accesskey="n" rel="next">Joystick Functions<
  retval = isa(obj, &quot;octave_joystick&quot;);
  </code>
 </p>
-<h4 class="subsubheading" id="Inputs"><span>Inputs<a class="copiable-link" href="#Inputs"></a></span></h4>
+<h4 class="subsubheading" id="Inputs">Inputs</h4>
 <p><var class="var">obj</var> - The object to check
 </p>
-<h4 class="subsubheading" id="Outputs"><span>Outputs<a class="copiable-link" href="#Outputs"></a></span></h4>
+<h4 class="subsubheading" id="Outputs">Outputs</h4>
 <p><var class="var">retval</var> is true, if obj is an vrjoystick object, false otherwise.
 </p>
 <p><strong class="strong">See also:</strong> vrjoystick.
 </p></dd></dl>
 </div>
 <div class="subsection-level-extent" id="vrjoysticklist">
-<h4 class="subsection"><span>3.1.2 vrjoysticklist<a class="copiable-link" href="#vrjoysticklist"></a></span></h4>
+<h4 class="subsection">3.1.2 vrjoysticklist</h4>
 <a class="index-entry-id" id="index-vrjoysticklist"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-vrjoysticklist-1"><span class="category-def">: </span><span><strong class="def-name">vrjoysticklist</strong> <code class="def-code-arguments">()</code><a class="copiable-link" href="#index-vrjoysticklist-1"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-vrjoysticklist-2"><span class="category-def">: </span><span><code class="def-type"><var class="var">joylist</var> =</code> <strong class="def-name">vrjoysticklist</strong> <code class="def-code-arguments">()</code><a class="copiable-link" href="#index-vrjoysticklist-2"></a></span></dt>
+<dt class="deftypefn def-line" id="index-vrjoysticklist-1"><span class="category-def">: </span><strong class="def-name">vrjoysticklist</strong> <code class="def-code-arguments">()</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-vrjoysticklist-2"><span class="category-def">: </span><code class="def-type"><var class="var">joylist</var> =</code> <strong class="def-name">vrjoysticklist</strong> <code class="def-code-arguments">()</code></dt>
 <dd><p>Get or print the available joystick devices.
 </p>
-<h4 class="subsubheading" id="Inputs-1"><span>Inputs<a class="copiable-link" href="#Inputs-1"></a></span></h4>
+<h4 class="subsubheading" id="Inputs-1">Inputs</h4>
 <p>None
 </p>
-<h4 class="subsubheading" id="Outputs-1"><span>Outputs<a class="copiable-link" href="#Outputs-1"></a></span></h4>
+<h4 class="subsubheading" id="Outputs-1">Outputs</h4>
 <p><var class="var">joylist</var> - a list of joystick ID, Name, ForceFeedbackSupported structures.<br>
 </p>
-<h4 class="subsubheading" id="Examples"><span>Examples<a class="copiable-link" href="#Examples"></a></span></h4>
+<h4 class="subsubheading" id="Examples">Examples</h4>
 <p>Display available joysticks
 </p><div class="example">
 <pre class="example-preformatted"><code class="code">
@@ -257,41 +224,27 @@ Next: <a href="#Joystick-Functions" accesskey="n" rel="next">Joystick Functions<
 </div>
 </div>
 <div class="section-level-extent" id="Joystick-Functions">
-<div class="nav-panel">
-<p>
-Previous: <a href="#Utility-Functions" accesskey="p" rel="prev">Utility Functions</a>, Up: <a href="#Function-Reference" accesskey="u" rel="up">Function Reference</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
-</div>
-<h3 class="section" id="Joystick-Functions-1"><span>3.2 Joystick Functions<a class="copiable-link" href="#Joystick-Functions-1"></a></span></h3>
+<h3 class="section" id="Joystick-Functions-1">3.2 Joystick Functions</h3>
 <a class="index-entry-id" id="index-Joystick-Functions"></a>
-<ul class="mini-toc">
-<li><a href="#g_t_0040octave_005fjoystick_002faxis" accesskey="1">@octave_joystick/axis</a></li>
-<li><a href="#g_t_0040octave_005fjoystick_002fbutton" accesskey="2">@octave_joystick/button</a></li>
-<li><a href="#g_t_0040octave_005fjoystick_002fcaps" accesskey="3">@octave_joystick/caps</a></li>
-<li><a href="#g_t_0040octave_005fjoystick_002fclose" accesskey="4">@octave_joystick/close</a></li>
-<li><a href="#g_t_0040octave_005fjoystick_002fforce" accesskey="5">@octave_joystick/force</a></li>
-<li><a href="#g_t_0040octave_005fjoystick_002fpov" accesskey="6">@octave_joystick/pov</a></li>
-<li><a href="#g_t_0040octave_005fjoystick_002fread" accesskey="7">@octave_joystick/read</a></li>
-<li><a href="#vrjoystick" accesskey="8">vrjoystick</a></li>
-</ul>
 <div class="subsection-level-extent" id="g_t_0040octave_005fjoystick_002faxis">
-<h4 class="subsection"><span>3.2.1 @octave_joystick/axis<a class="copiable-link" href="#g_t_0040octave_005fjoystick_002faxis"></a></span></h4>
+<h4 class="subsection">3.2.1 @octave_joystick/axis</h4>
 <a class="index-entry-id" id="index-axis"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-axis-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">axis</strong> <code class="def-code-arguments">(<var class="var">joy</var>, <var class="var">id</var>)</code><a class="copiable-link" href="#index-axis-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-axis-1"><span class="category-def">: </span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">axis</strong> <code class="def-code-arguments">(<var class="var">joy</var>, <var class="var">id</var>)</code></dt>
 <dd><p>Get the value of axis <var class="var">id</var> on joystick <var class="var">joy</var>.
 </p>
-<h4 class="subsubheading" id="Inputs-2"><span>Inputs<a class="copiable-link" href="#Inputs-2"></a></span></h4>
+<h4 class="subsubheading" id="Inputs-2">Inputs</h4>
 <p><var class="var">joy</var> - a previously opened joystick object<br>
 <var class="var">id</var> - a positive numeric id for the joystick axis to use<br>
 </p>
 <p><var class="var">id</var> can be a vector of ids to allow getting multiple axis.
 </p>
-<h4 class="subsubheading" id="Outputs-2"><span>Outputs<a class="copiable-link" href="#Outputs-2"></a></span></h4>
+<h4 class="subsubheading" id="Outputs-2">Outputs</h4>
 <p><var class="var">value</var> - value of the axis between -1 .. 1.<br>
 </p>
 <p><var class="var">value</var> will be a vector of values when getting multiple axis.
 </p>
-<h4 class="subsubheading" id="Examples-1"><span>Examples<a class="copiable-link" href="#Examples-1"></a></span></h4>
+<h4 class="subsubheading" id="Examples-1">Examples</h4>
 <p>Open device 1 and get value of axis 1
 </p><div class="example">
 <pre class="example-preformatted"><code class="code">
@@ -303,24 +256,24 @@ Previous: <a href="#Utility-Functions" accesskey="p" rel="prev">Utility Function
 </p></dd></dl>
 </div>
 <div class="subsection-level-extent" id="g_t_0040octave_005fjoystick_002fbutton">
-<h4 class="subsection"><span>3.2.2 @octave_joystick/button<a class="copiable-link" href="#g_t_0040octave_005fjoystick_002fbutton"></a></span></h4>
+<h4 class="subsection">3.2.2 @octave_joystick/button</h4>
 <a class="index-entry-id" id="index-button"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-button-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">button</strong> <code class="def-code-arguments">(<var class="var">joy</var>, <var class="var">id</var>)</code><a class="copiable-link" href="#index-button-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-button-1"><span class="category-def">: </span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">button</strong> <code class="def-code-arguments">(<var class="var">joy</var>, <var class="var">id</var>)</code></dt>
 <dd><p>Get the value of button <var class="var">id</var> on joystick <var class="var">joy</var>.
 </p>
-<h4 class="subsubheading" id="Inputs-3"><span>Inputs<a class="copiable-link" href="#Inputs-3"></a></span></h4>
+<h4 class="subsubheading" id="Inputs-3">Inputs</h4>
 <p><var class="var">joy</var> - a previously opened joystick object<br>
 <var class="var">id</var> - a positive numeric id for the joystick button to use<br>
 </p>
 <p><var class="var">id</var> can be a vector of ids to allow getting multiple buttons.
 </p>
-<h4 class="subsubheading" id="Outputs-3"><span>Outputs<a class="copiable-link" href="#Outputs-3"></a></span></h4>
+<h4 class="subsubheading" id="Outputs-3">Outputs</h4>
 <p><var class="var">value</var> - value of the button (0 or 1).<br>
 </p>
 <p><var class="var">value</var> will be a vector of values when getting multiple buttons.
 </p>
-<h4 class="subsubheading" id="Examples-2"><span>Examples<a class="copiable-link" href="#Examples-2"></a></span></h4>
+<h4 class="subsubheading" id="Examples-2">Examples</h4>
 <p>Open device 1 and get value of button 1
 </p><div class="example">
 <pre class="example-preformatted"><code class="code">
@@ -332,19 +285,19 @@ Previous: <a href="#Utility-Functions" accesskey="p" rel="prev">Utility Function
 </p></dd></dl>
 </div>
 <div class="subsection-level-extent" id="g_t_0040octave_005fjoystick_002fcaps">
-<h4 class="subsection"><span>3.2.3 @octave_joystick/caps<a class="copiable-link" href="#g_t_0040octave_005fjoystick_002fcaps"></a></span></h4>
+<h4 class="subsection">3.2.3 @octave_joystick/caps</h4>
 <a class="index-entry-id" id="index-caps"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-caps-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">info</var> =</code> <strong class="def-name">caps</strong> <code class="def-code-arguments">(<var class="var">joy</var>)</code><a class="copiable-link" href="#index-caps-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-caps-1"><span class="category-def">: </span><code class="def-type"><var class="var">info</var> =</code> <strong class="def-name">caps</strong> <code class="def-code-arguments">(<var class="var">joy</var>)</code></dt>
 <dd><p>Get the capabilities joystick <var class="var">joy</var>.
 </p>
-<h4 class="subsubheading" id="Inputs-4"><span>Inputs<a class="copiable-link" href="#Inputs-4"></a></span></h4>
+<h4 class="subsubheading" id="Inputs-4">Inputs</h4>
 <p><var class="var">joy</var> - a previously opened joystick object<br>
 </p>
-<h4 class="subsubheading" id="Outputs-4"><span>Outputs<a class="copiable-link" href="#Outputs-4"></a></span></h4>
+<h4 class="subsubheading" id="Outputs-4">Outputs</h4>
 <p><var class="var">info</var> - A struct with fields Axis, Buttons, Force, POVs to hold the numeric count of each in joystick.<br>
 </p>
-<h4 class="subsubheading" id="Examples-3"><span>Examples<a class="copiable-link" href="#Examples-3"></a></span></h4>
+<h4 class="subsubheading" id="Examples-3">Examples</h4>
 <p>Open device 1 and capabilities
 </p><div class="example">
 <pre class="example-preformatted"><code class="code">
@@ -356,31 +309,31 @@ Previous: <a href="#Utility-Functions" accesskey="p" rel="prev">Utility Function
 </p></dd></dl>
 </div>
 <div class="subsection-level-extent" id="g_t_0040octave_005fjoystick_002fclose">
-<h4 class="subsection"><span>3.2.4 @octave_joystick/close<a class="copiable-link" href="#g_t_0040octave_005fjoystick_002fclose"></a></span></h4>
+<h4 class="subsection">3.2.4 @octave_joystick/close</h4>
 <a class="index-entry-id" id="index-close"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-close-1"><span class="category-def">: </span><span><strong class="def-name">close</strong> <code class="def-code-arguments">(<var class="var">joy</var>)</code><a class="copiable-link" href="#index-close-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-close-1"><span class="category-def">: </span><strong class="def-name">close</strong> <code class="def-code-arguments">(<var class="var">joy</var>)</code></dt>
 <dd><p>Close opened joystick <var class="var">joy</var>.
 </p>
 <p>After closing the joystick querying the device will no longer work.
 </p>
-<h4 class="subsubheading" id="Inputs-5"><span>Inputs<a class="copiable-link" href="#Inputs-5"></a></span></h4>
+<h4 class="subsubheading" id="Inputs-5">Inputs</h4>
 <p><var class="var">joy</var> - a previously opened joystick object<br>
 </p>
-<h4 class="subsubheading" id="Outputs-5"><span>Outputs<a class="copiable-link" href="#Outputs-5"></a></span></h4>
+<h4 class="subsubheading" id="Outputs-5">Outputs</h4>
 <p>None
 </p>
 <p><strong class="strong">See also:</strong> vrjoystick.
 </p></dd></dl>
 </div>
 <div class="subsection-level-extent" id="g_t_0040octave_005fjoystick_002fforce">
-<h4 class="subsection"><span>3.2.5 @octave_joystick/force<a class="copiable-link" href="#g_t_0040octave_005fjoystick_002fforce"></a></span></h4>
+<h4 class="subsection">3.2.5 @octave_joystick/force</h4>
 <a class="index-entry-id" id="index-force"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-force-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">force</strong> <code class="def-code-arguments">(<var class="var">joy</var>, <var class="var">id</var>, <var class="var">forcevalue</var>)</code><a class="copiable-link" href="#index-force-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-force-1"><span class="category-def">: </span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">force</strong> <code class="def-code-arguments">(<var class="var">joy</var>, <var class="var">id</var>, <var class="var">forcevalue</var>)</code></dt>
 <dd><p>Apply forcefeedback on axis <var class="var">id</var> on joystick <var class="var">joy</var>.
 </p>
-<h4 class="subsubheading" id="Inputs-6"><span>Inputs<a class="copiable-link" href="#Inputs-6"></a></span></h4>
+<h4 class="subsubheading" id="Inputs-6">Inputs</h4>
 <p><var class="var">joy</var> - a previously opened joystick object<br>
 <var class="var">id</var> - a positive numeric id for the joystick forcefeed axis to use<br>
 <var class="var">forcevalue</var> - force value to use, values should be between -1 .. 1<br>
@@ -389,31 +342,31 @@ Previous: <a href="#Utility-Functions" accesskey="p" rel="prev">Utility Function
  single value applied to all of the specified axis or a vector of the same size
  as <var class="var">id</var>, with a value for  each axis.
 </p>
-<h4 class="subsubheading" id="Outputs-6"><span>Outputs<a class="copiable-link" href="#Outputs-6"></a></span></h4>
+<h4 class="subsubheading" id="Outputs-6">Outputs</h4>
 <p>None
 </p>
 <p><strong class="strong">See also:</strong> vrjoystick.
 </p></dd></dl>
 </div>
 <div class="subsection-level-extent" id="g_t_0040octave_005fjoystick_002fpov">
-<h4 class="subsection"><span>3.2.6 @octave_joystick/pov<a class="copiable-link" href="#g_t_0040octave_005fjoystick_002fpov"></a></span></h4>
+<h4 class="subsection">3.2.6 @octave_joystick/pov</h4>
 <a class="index-entry-id" id="index-pov"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-pov-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">pov</strong> <code class="def-code-arguments">(<var class="var">joy</var>, <var class="var">id</var>)</code><a class="copiable-link" href="#index-pov-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-pov-1"><span class="category-def">: </span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">pov</strong> <code class="def-code-arguments">(<var class="var">joy</var>, <var class="var">id</var>)</code></dt>
 <dd><p>Get the value of pov <var class="var">id</var> on joystick <var class="var">joy</var>.
 </p>
-<h4 class="subsubheading" id="Inputs-7"><span>Inputs<a class="copiable-link" href="#Inputs-7"></a></span></h4>
+<h4 class="subsubheading" id="Inputs-7">Inputs</h4>
 <p><var class="var">joy</var> - a previously opened joystick object<br>
 <var class="var">id</var> - a positive numeric id for the joystick pov to use<br>
 </p>
 <p><var class="var">id</var> can be a vector of ids to allow getting multiple povs.
 </p>
-<h4 class="subsubheading" id="Outputs-7"><span>Outputs<a class="copiable-link" href="#Outputs-7"></a></span></h4>
+<h4 class="subsubheading" id="Outputs-7">Outputs</h4>
 <p><var class="var">value</var> - value of the pov as an angle in degrees, or -1 if not pressed.<br>
 </p>
 <p><var class="var">value</var> will be a vector of values when getting multiple buttons.
 </p>
-<h4 class="subsubheading" id="Examples-4"><span>Examples<a class="copiable-link" href="#Examples-4"></a></span></h4>
+<h4 class="subsubheading" id="Examples-4">Examples</h4>
 <p>Open device 1 and get value of pov 1
 </p><div class="example">
 <pre class="example-preformatted"><code class="code">
@@ -425,16 +378,16 @@ Previous: <a href="#Utility-Functions" accesskey="p" rel="prev">Utility Function
 </p></dd></dl>
 </div>
 <div class="subsection-level-extent" id="g_t_0040octave_005fjoystick_002fread">
-<h4 class="subsection"><span>3.2.7 @octave_joystick/read<a class="copiable-link" href="#g_t_0040octave_005fjoystick_002fread"></a></span></h4>
+<h4 class="subsection">3.2.7 @octave_joystick/read</h4>
 <a class="index-entry-id" id="index-read"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-read-1"><span class="category-def">: </span><span><code class="def-type">[<var class="var">axes</var>, <var class="var">buttons</var>, <var class="var">povs</var>] =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">joy</var>)</code><a class="copiable-link" href="#index-read-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-read-1"><span class="category-def">: </span><code class="def-type">[<var class="var">axes</var>, <var class="var">buttons</var>, <var class="var">povs</var>] =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">joy</var>)</code></dt>
 <dd><p>Get the value of all axes, buttons and povs joystick <var class="var">joy</var>.
 </p>
-<h4 class="subsubheading" id="Inputs-8"><span>Inputs<a class="copiable-link" href="#Inputs-8"></a></span></h4>
+<h4 class="subsubheading" id="Inputs-8">Inputs</h4>
 <p><var class="var">joy</var> - a previously opened joystick object<br>
 </p>
-<h4 class="subsubheading" id="Outputs-8"><span>Outputs<a class="copiable-link" href="#Outputs-8"></a></span></h4>
+<h4 class="subsubheading" id="Outputs-8">Outputs</h4>
 <p><var class="var">axes</var> - vector of the axis values.<br>
 <var class="var">buttons</var> - vector of the button values.<br>
 <var class="var">povs</var> - vector of the pov values.<br>
@@ -443,21 +396,21 @@ Previous: <a href="#Utility-Functions" accesskey="p" rel="prev">Utility Function
 </p></dd></dl>
 </div>
 <div class="subsection-level-extent" id="vrjoystick">
-<h4 class="subsection"><span>3.2.8 vrjoystick<a class="copiable-link" href="#vrjoystick"></a></span></h4>
+<h4 class="subsection">3.2.8 vrjoystick</h4>
 <a class="index-entry-id" id="index-vrjoystick"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-vrjoystick-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">vrjoystick</strong> <code class="def-code-arguments">(<var class="var">id</var>)</code><a class="copiable-link" href="#index-vrjoystick-1"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-vrjoystick-2"><span class="category-def">: </span><span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">vrjoystick</strong> <code class="def-code-arguments">(<var class="var">id</var>, <var class="var">&quot;forcefeedback&quot;</var>)</code><a class="copiable-link" href="#index-vrjoystick-2"></a></span></dt>
+<dt class="deftypefn def-line" id="index-vrjoystick-1"><span class="category-def">: </span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">vrjoystick</strong> <code class="def-code-arguments">(<var class="var">id</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-vrjoystick-2"><span class="category-def">: </span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">vrjoystick</strong> <code class="def-code-arguments">(<var class="var">id</var>, <var class="var">&quot;forcefeedback&quot;</var>)</code></dt>
 <dd><p>Attempt to open a joystick.
 </p>
-<h4 class="subsubheading" id="Inputs-9"><span>Inputs<a class="copiable-link" href="#Inputs-9"></a></span></h4>
+<h4 class="subsubheading" id="Inputs-9">Inputs</h4>
 <p><var class="var">id</var> - a positive numeric id for the joystick device to use.<br>
 <var class="var">&quot;forcefeedback&quot;</var> - String constant to enable forcefeedback.<br>
 </p>
-<h4 class="subsubheading" id="Outputs-9"><span>Outputs<a class="copiable-link" href="#Outputs-9"></a></span></h4>
+<h4 class="subsubheading" id="Outputs-9">Outputs</h4>
 <p><var class="var">joy</var> - a octave_joystick object.<br>
 </p>
-<h4 class="subsubheading" id="Joystick-Properties"><span>Joystick Properties<a class="copiable-link" href="#Joystick-Properties"></a></span></h4>
+<h4 class="subsubheading" id="Joystick-Properties">Joystick Properties</h4>
 <p>A joystick object has the following properties:
 </p><dl class="table">
 <dt>ID</dt>
@@ -474,7 +427,7 @@ Previous: <a href="#Utility-Functions" accesskey="p" rel="prev">Utility Function
  supports forcefeedback.
 </p></dd>
 </dl>
-<h4 class="subsubheading" id="Joystick-Functions-2"><span>Joystick  Functions<a class="copiable-link" href="#Joystick-Functions-2"></a></span></h4>
+<h4 class="subsubheading" id="Joystick-Functions-2">Joystick  Functions</h4>
 <p>A joystick object provides the following functions:
 </p><dl class="table">
 <dt>axis</dt>
@@ -499,7 +452,7 @@ Previous: <a href="#Utility-Functions" accesskey="p" rel="prev">Utility Function
 <dd><p>Read all state values from a joystick
 </p></dd>
 </dl>
-<h4 class="subsubheading" id="Examples-5"><span>Examples<a class="copiable-link" href="#Examples-5"></a></span></h4>
+<h4 class="subsubheading" id="Examples-5">Examples</h4>
 <p>Open device 1
 </p><div class="example">
 <pre class="example-preformatted"><code class="code">
@@ -513,11 +466,7 @@ Previous: <a href="#Utility-Functions" accesskey="p" rel="prev">Utility Function
 </div>
 </div>
 <div class="appendix-level-extent" id="Copying">
-<div class="nav-panel">
-<p>
-Next: <a href="#Index" accesskey="n" rel="next">Index</a>, Previous: <a href="#Function-Reference" accesskey="p" rel="prev">Function Reference</a>, Up: <a href="#Top" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
-</div>
-<h2 class="appendix" id="GNU-General-Public-License"><span>Appendix A GNU General Public License<a class="copiable-link" href="#GNU-General-Public-License"></a></span></h2>
+<h2 class="appendix" id="GNU-General-Public-License">Appendix A GNU General Public License</h2>
 <a class="index-entry-id" id="index-warranty"></a>
 <a class="index-entry-id" id="index-copyright"></a>
 <div class="center">Version 3, 29 June 2007
@@ -527,7 +476,7 @@ Next: <a href="#Index" accesskey="n" rel="next">Index</a>, Previous: <a href="#F
 Everyone is permitted to copy and distribute verbatim copies of this
 license document, but changing it is not allowed.
 </pre></div>
-<h3 class="heading" id="Preamble"><span>Preamble<a class="copiable-link" href="#Preamble"></a></span></h3>
+<h3 class="heading" id="Preamble">Preamble</h3>
 <p>The GNU General Public License is a free, copyleft license for
 software and other kinds of works.
 </p>
@@ -591,7 +540,7 @@ assures that patents cannot be used to render the program non-free.
 <p>The precise terms and conditions for copying, distribution and
 modification follow.
 </p>
-<h3 class="heading" id="TERMS-AND-CONDITIONS"><span>TERMS AND CONDITIONS<a class="copiable-link" href="#TERMS-AND-CONDITIONS"></a></span></h3>
+<h3 class="heading" id="TERMS-AND-CONDITIONS">TERMS AND CONDITIONS</h3>
 <ol class="enumerate" start="0">
 <li> Definitions.
 <p>&ldquo;This License&rdquo; refers to version 3 of the GNU General Public License.
@@ -1119,8 +1068,8 @@ Program, unless a warranty or assumption of liability accompanies a
 copy of the Program in return for a fee.
 </p>
 </li></ol>
-<h3 class="heading" id="END-OF-TERMS-AND-CONDITIONS"><span>END OF TERMS AND CONDITIONS<a class="copiable-link" href="#END-OF-TERMS-AND-CONDITIONS"></a></span></h3>
-<h3 class="heading" id="How-to-Apply-These-Terms-to-Your-New-Programs"><span>How to Apply These Terms to Your New Programs<a class="copiable-link" href="#How-to-Apply-These-Terms-to-Your-New-Programs"></a></span></h3>
+<h3 class="heading" id="END-OF-TERMS-AND-CONDITIONS">END OF TERMS AND CONDITIONS</h3>
+<h3 class="heading" id="How-to-Apply-These-Terms-to-Your-New-Programs">How to Apply These Terms to Your New Programs</h3>
 <p>If you develop a new program, and you want it to be of the greatest
 possible use to the public, the best way to achieve this is to make it
 free software which everyone can redistribute and change under these
@@ -1176,11 +1125,7 @@ first, please read <a class="url" href="http://www.gnu.org/philosophy/why-not-lg
 <hr>
 </div>
 <div class="unnumbered-level-extent" id="Index">
-<div class="nav-panel">
-<p>
-Previous: <a href="#Copying" accesskey="p" rel="prev">GNU General Public License</a>, Up: <a href="#Top" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Index" title="Index" rel="index">Index</a>]</p>
-</div>
-<h2 class="unnumbered" id="Index-1"><span>Index<a class="copiable-link" href="#Index-1"></a></span></h2>
+<h2 class="unnumbered" id="Index-1">Index</h2>
  
 <div class="printindex cp-printindex">
 <table class="cp-letters-header-printindex"><tr><th>Jump to: &nbsp; </th><td><a class="summary-letter-printindex" href="#Index_cp_letter-A"><b>A</b></a>

@@ -3,7 +3,7 @@ layout: "default"
 permalink: "/news/"
 title: "Joystick Toolkit - News"
 pkg_name: "joystick"
-version: "0.0.3"
+version: "0.0.4"
 description: "Provides Joystick functions for Octave"
 navigation:
 - id: "overview"
@@ -19,12 +19,19 @@ navigation:
   url: "/manual"
 ---
 <pre>
+Summary of important user-visible changes for version 0.0.4:
+------------------------------------------------------------
+
+  ** Add SDL3 support
+
+  ** Minor doc updates
+
 Summary of important user-visible changes for version 0.0.3:
 ------------------------------------------------------------
 
   ** Updated for Octave 8+ compatibility
 
-  ** Minordoc updates
+  ** Minor doc updates
 
 Summary of important user-visible changes for version 0.0.2:
 ------------------------------------------------------------
