@@ -53,3 +53,4 @@ Documentation
 Known limitations and bugs
 ==========================
 
+* https://github.com/gnu-octave/octave-joystick/issues
