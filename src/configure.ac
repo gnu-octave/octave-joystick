@@ -97,19 +97,6 @@ CXXFLAGS="-I$OCTINCLUDEDIR $CXXFLAGS"
 LDFLAGS="-L$OCTLIBDIR $LDFLAGS"
 LIBS="-loctinterp $LIBS"
 
-# includes
-AC_CHECK_HEADERS([octave/interpreter.h],
-  [],
-  [],
-  [#include <octave/oct.h>]
-)
-
-AC_CHECK_HEADERS([octave/lo-sysdep.h],
-  [],
-  [],
-  [#include <octave/oct.h>]
-)
-
 OF_OCTAVE_LIST_ALT_SYMS([
 [dnl
   [feval],
@@ -294,7 +281,17 @@ save_sdl_CPPFLAGS="$CPPFLAGS"
 save_sdl_LIBS="$LIBS"
 CPPFLAGS="$CPPFLAGS $SDL_CFLAGS"
 LIBS="$LIBS $SDL_LIBS"
-AC_CHECK_HEADERS([SDL3/SDL.h SDL2/SDL.h SDL.h], [], [])
+
+have_sdl_header=""
+if test "$SDL_MAJOR_VER" == "3" ; then
+AC_CHECK_HEADERS([SDL3/SDL.h], [have_sdl_header=yes], [])
+fi
+if test "$SDL_MAJOR_VER" == "2" ; then
+AC_CHECK_HEADERS([SDL2/SDL.h], [have_sdl_header=yes], [])
+fi
+if test "$have_sdl_header" == "" ; then
+AC_CHECK_HEADERS([SDL.h], [have_sdl_header=yes], [])
+fi
 # cant use in windows as needs a SDL_main defined
 #AC_CHECK_FUNC([SDL_Quit], [], [AC_MSG_ERROR([Could not find SDL_Quit])])
 LIBS=$save_sdl_LIBS
