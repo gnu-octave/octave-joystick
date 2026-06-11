@@ -10,7 +10,7 @@ author: "John Donoghue <john.donoghue@ieee.org>"
 maintainer: "John Donoghue <john.donoghue@ieee.org>"
 license: "GPLv3+"
 pkg_url: "https://gnu-octave.github.io/octave-joystick/"
-repository: "https://github.com/gnu-octave/octave-jotstick/"
+repository: "https://github.com/gnu-octave/octave-joystick/"
 issues: "https://github.com/gnu-octave/octave-joystick/issues/"
 navigation:
 - id: "overview"
