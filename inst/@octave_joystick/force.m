@@ -16,16 +16,16 @@
 
 ## -*- texinfo -*-
 ## @deftypefn {} {@var{joy} =} force (@var{joy}, @var{id}, @var{forcevalue})
-## Apply forcefeedback on axis @var{id} on joystick @var{joy}.
+## Apply force-feedback to axis @var{id} on joystick @var{joy}.
 ##
 ## @subsubheading Inputs
 ## @var{joy} - a previously opened joystick object@*
-## @var{id} - a positive numeric id for the joystick forcefeed axis to use@*
+## @var{id} - a positive numeric id for the joystick force-feedback axis to use@*
 ## @var{forcevalue} - force value to use, values should be between -1 .. 1@*
 ##
 ## If @var{id} is a vector of axis ids, @var{forcevalue} is expected to be a
 ## single value applied to all of the specified axis or a vector of the same size
-## as @var{id}, with a value for  each axis.
+## as @var{id}, with a value for each axis.
 ##
 ## @subsubheading Outputs
 ## None

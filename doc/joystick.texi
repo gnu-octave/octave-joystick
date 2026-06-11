@@ -89,7 +89,7 @@ The Joystick toolkit is a set of Joystick file I/O routines for GNU Octave
 
 The Joystick toolkit must be installed and then loaded to be used.
 
-It can be installed in @acronym{GNU} Octave directly from octave-forge,
+It can be installed in @acronym{GNU} Octave directly from Octave Packages @url{https://gnu-octave.github.io/packages/}
 or can be installed in an off-line mode via a downloaded tarball.
 
 The toolkit has a dependency on the SDL library (@url{http://www.libsdl.org/}), so it must be installed in order
@@ -99,7 +99,7 @@ For Fedora: @code{yum install sdl2-devel}
 
 For Ubuntu: @code{apt install libsdl2-dev} 
 
-The toolkit must be then be loaded once per each @acronym{GNU} Octave session in order to use its functionality.
+The toolkit must then be loaded once per @acronym{GNU} Octave session in order to use its functionality.
 
 @section Online Direct install
 @cindex Online install
@@ -137,7 +137,7 @@ The toolkit must be loaded on each @acronym{GNU} Octave session.
 @chapter Basic Usage Overview
 @cindex Basic Usage Overview
 
-A list of available joysticks available can be obtained using the vrjoysticklist function.
+A list of available joysticks can be obtained using the vrjoysticklist function.
 
 @example
 > vrjoysticklist 
@@ -155,7 +155,7 @@ joy =
     Name: Logitech Dual Action
 @end example
 
-The capabilities of the joystick can be read to determine number of axis and buttons are available.
+The capabilities of the joystick can be read to determine number of axis and buttons available.
 
 @example
 > caps(joy)

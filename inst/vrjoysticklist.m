@@ -33,10 +33,10 @@
 ## }
 ## @end example
 ##
-## Get a list available joysticks to a variable
+## Get a list of available joysticks into a variable.
 ## @example
 ## @code {
-## joylist = joysticklist;
+## joylist = vrjoysticklist;
 ## }
 ## @end example
 ##

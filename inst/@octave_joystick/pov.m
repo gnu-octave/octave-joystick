@@ -27,7 +27,7 @@
 ## @subsubheading Outputs
 ## @var{value} - value of the pov as an angle in degrees, or -1 if not pressed.@*
 ##
-## @var{value} will be a vector of values when getting multiple buttons.
+## @var{value} will be a vector of values when getting multiple POVs.
 ##
 ## @subsubheading Examples
 ## Open device 1 and get value of pov 1

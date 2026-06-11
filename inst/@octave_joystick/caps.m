@@ -16,16 +16,17 @@
 
 ## -*- texinfo -*-
 ## @deftypefn {} {@var{info} =} caps (@var{joy})
-## Get the capabilities joystick @var{joy}.
+## Get the capabilities of joystick @var{joy}.
 ##
 ## @subsubheading Inputs
 ## @var{joy} - a previously opened joystick object@*
 ##
 ## @subsubheading Outputs
-## @var{info} - A struct with fields Axis, Buttons, Force, POVs to hold the numeric count of each in joystick.@*
+## @var{info} - A struct with fields Axis, Buttons, Forces, POVs to
+## hold the numeric count of each in joystick.@*
 ##
 ## @subsubheading Examples
-## Open device 1 and capabilities
+## Open device 1 and retrieve its capabilities.
 ## @example
 ## @code {
 ## joy = vrjoystick(1);

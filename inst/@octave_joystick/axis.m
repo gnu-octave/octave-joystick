@@ -22,7 +22,7 @@
 ## @var{joy} - a previously opened joystick object@*
 ## @var{id} - a positive numeric id for the joystick axis to use@*
 ##
-## @var{id} can be a vector of ids to allow getting multiple axis.
+## @var{id} can be a vector of IDs to allow retrieving multiple axes.
 ##
 ## @subsubheading Outputs
 ## @var{value} - value of the axis between -1 .. 1.@*

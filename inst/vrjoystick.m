@@ -17,14 +17,14 @@
 ## -*- texinfo -*-
 ## @deftypefn {} {@var{joy} =} vrjoystick (@var{id})
 ## @deftypefnx {} {@var{joy} =} vrjoystick (@var{id}, @var{"forcefeedback"})
-## Attempt to open a joystick.
+## Open a joystick device.
 ##
 ## @subsubheading Inputs
 ## @var{id} - a positive numeric id for the joystick device to use.@*
 ## @var{"forcefeedback"} - String constant to enable forcefeedback.@*
 ##
 ## @subsubheading Outputs
-## @var{joy} - a octave_joystick object.@*
+## @var{joy} - an octave_joystick object.@*
 ##
 ## @subsubheading Joystick Properties
 ## A joystick object has the following properties:
@@ -36,8 +36,8 @@
 ## @item Status
 ## Status of the joystick ("Open" or "Closed")
 ## @item ForceFeedbackSupported
-## Boolean for if the joystick was opened with forcefeedback enabled and
-## supports forcefeedback.
+## Boolean indicating whether the joystick was opened with force-feedback
+## enabled and supports force-feedback.
 ## @end table
 ##
 ## @subsubheading Joystick  Functions
@@ -45,7 +45,7 @@
 ## @table @asis
 ## @item axis
 ## Get the value of a joystick axis
-## @item buttons
+## @item button
 ## Get the state of a joystick button
 ## @item caps
 ## Get the capabilities of the joystick

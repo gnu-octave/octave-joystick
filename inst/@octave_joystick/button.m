@@ -22,7 +22,7 @@
 ## @var{joy} - a previously opened joystick object@*
 ## @var{id} - a positive numeric id for the joystick button to use@*
 ##
-## @var{id} can be a vector of ids to allow getting multiple buttons.
+## @var{id} an be a vector of IDs to allow retrieving multiple buttons.
 ##
 ## @subsubheading Outputs
 ## @var{value} - value of the button (0 or 1).@*

@@ -16,7 +16,7 @@
 
 ## -*- texinfo -*-
 ## @deftypefn {} {[@var{axes}, @var{buttons}, @var{povs}] =} read (@var{joy})
-## Get the value of all axes, buttons and povs joystick @var{joy}.
+## Get the values of all axes, buttons, and POVs on joystick @var{joy}.
 ##
 ## @subsubheading Inputs
 ## @var{joy} - a previously opened joystick object@*
@@ -26,7 +26,7 @@
 ## @var{buttons} - vector of the button values.@*
 ## @var{povs} - vector of the pov values.@*
 ##
-## @seealso{vrjoystick, axis, pov, buttons}
+## @seealso{vrjoystick, axis, pov, button}
 ## @end deftypefn
 
 function [axes, buttons, povs] = read(joy)

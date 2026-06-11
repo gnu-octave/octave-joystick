@@ -16,9 +16,9 @@
 
 ## -*- texinfo -*- 
 ## @deftypefn {} {@var{retval} =} isvrjoystick (@var{obj})
-## Check if input value is a vrjoystick object
+## Check whether an input value is a vrjoystick object.
 ##
-## Function is essentially just a call of
+## This function is essentially just a call to
 ## @code {
 ## retval = isa(obj, "octave_joystick");
 ## }
@@ -27,7 +27,7 @@
 ## @var{obj} - The object to check
 ##
 ## @subsubheading Outputs
-## @var{retval} is true, if obj is an vrjoystick object, false otherwise.
+## @var{retval} is true if obj is a vrjoystick object, and false otherwise.
 ##
 ## @seealso{vrjoystick}
 ## @end deftypefn
