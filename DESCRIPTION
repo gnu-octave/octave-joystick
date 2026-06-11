@@ -9,5 +9,5 @@ Categories: Math
 Depends: octave (>= 4.0.0)
 License: GPLv3+
 Url: https://gnu-octave.github.io/octave-joystick/
-Repository: https://github.com/gnu-octave/octave-jotstick/
+Repository: https://github.com/gnu-octave/octave-joystick/
 Tracker: https://github.com/gnu-octave/octave-joystick/issues/
