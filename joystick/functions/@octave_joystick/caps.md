@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_joystick/21_octavejoystickcaps/"
 pkg_name: "joystick"
-pkg_version: "0.0.4"
+pkg_version: "0.0.5"
 pkg_description: "Provides Joystick functions for Octave"
 title: "Joystick Toolkit - @octave_joystick/caps"
 category: "Joystick Functions"
@@ -29,16 +29,17 @@ navigation:
 ---
 <dl class="first-deftypefn def-block">
 <dt class="deftypefn def-line" id="index-caps"><span class="category-def">: </span><span><code class="def-type"><var class="var">info</var> =</code> <strong class="def-name">caps</strong> <code class="def-code-arguments">(<var class="var">joy</var>)</code><a class="copiable-link" href="#index-caps"></a></span></dt>
-<dd><p>Get the capabilities joystick <var class="var">joy</var>.
+<dd><p>Get the capabilities of joystick <var class="var">joy</var>.
 </p>
 <h4 class="subsubheading" id="Inputs"><span>Inputs<a class="copiable-link" href="#Inputs"></a></span></h4>
 <p><var class="var">joy</var> - a previously opened joystick object<br>
 </p>
 <h4 class="subsubheading" id="Outputs"><span>Outputs<a class="copiable-link" href="#Outputs"></a></span></h4>
-<p><var class="var">info</var> - A struct with fields Axis, Buttons, Force, POVs to hold the numeric count of each in joystick.<br>
+<p><var class="var">info</var> - A struct with fields Axis, Buttons, Forces, POVs to
+ hold the numeric count of each in joystick.<br>
 </p>
 <h4 class="subsubheading" id="Examples"><span>Examples<a class="copiable-link" href="#Examples"></a></span></h4>
-<p>Open device 1 and capabilities
+<p>Open device 1 and retrieve its capabilities.
  </p><div class="example">
 <pre class="example-preformatted"> <code class="code">
  joy = vrjoystick(1);

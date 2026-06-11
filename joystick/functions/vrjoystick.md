@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/10_vrjoystick/"
 pkg_name: "joystick"
-pkg_version: "0.0.4"
+pkg_version: "0.0.5"
 pkg_description: "Provides Joystick functions for Octave"
 title: "Joystick Toolkit - vrjoystick"
 category: "Joystick Functions"
@@ -30,14 +30,14 @@ navigation:
 <dl class="first-deftypefn def-block">
 <dt class="deftypefn def-line" id="index-vrjoystick"><span class="category-def">: </span><span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">vrjoystick</strong> <code class="def-code-arguments">(<var class="var">id</var>)</code><a class="copiable-link" href="#index-vrjoystick"></a></span></dt>
 <dt class="deftypefnx def-cmd-deftypefn def-line" id="index-vrjoystick-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">vrjoystick</strong> <code class="def-code-arguments">(<var class="var">id</var>, <var class="var">&quot;forcefeedback&quot;</var>)</code><a class="copiable-link" href="#index-vrjoystick-1"></a></span></dt>
-<dd><p>Attempt to open a joystick.
+<dd><p>Open a joystick device.
 </p>
 <h4 class="subsubheading" id="Inputs"><span>Inputs<a class="copiable-link" href="#Inputs"></a></span></h4>
 <p><var class="var">id</var> - a positive numeric id for the joystick device to use.<br>
  <var class="var">&quot;forcefeedback&quot;</var> - String constant to enable forcefeedback.<br>
 </p>
 <h4 class="subsubheading" id="Outputs"><span>Outputs<a class="copiable-link" href="#Outputs"></a></span></h4>
-<p><var class="var">joy</var> - a octave_joystick object.<br>
+<p><var class="var">joy</var> - an octave_joystick object.<br>
 </p>
 <h4 class="subsubheading" id="Joystick-Properties"><span>Joystick Properties<a class="copiable-link" href="#Joystick-Properties"></a></span></h4>
 <p>A joystick object has the following properties:
@@ -52,8 +52,8 @@ navigation:
 <dd><p>Status of the joystick (&quot;Open&quot; or &quot;Closed&quot;)
  </p></dd>
 <dt>ForceFeedbackSupported</dt>
-<dd><p>Boolean for if the joystick was opened with forcefeedback enabled and
- supports forcefeedback.
+<dd><p>Boolean indicating whether the joystick was opened with force-feedback
+ enabled and supports force-feedback.
  </p></dd>
 </dl>
 
@@ -63,7 +63,7 @@ navigation:
 <dt>axis</dt>
 <dd><p>Get the value of a joystick axis
  </p></dd>
-<dt>buttons</dt>
+<dt>button</dt>
 <dd><p>Get the state of a joystick button
  </p></dd>
 <dt>caps</dt>

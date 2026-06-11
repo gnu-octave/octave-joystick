@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/12_isvrjoystick/"
 pkg_name: "joystick"
-pkg_version: "0.0.4"
+pkg_version: "0.0.5"
 pkg_description: "Provides Joystick functions for Octave"
 title: "Joystick Toolkit - isvrjoystick"
 category: "Utility Functions"
@@ -29,9 +29,9 @@ navigation:
 ---
 <dl class="first-deftypefn def-block">
 <dt class="deftypefn def-line" id="index-isvrjoystick"><span class="category-def">: </span><span><code class="def-type"><var class="var">retval</var> =</code> <strong class="def-name">isvrjoystick</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code><a class="copiable-link" href="#index-isvrjoystick"></a></span></dt>
-<dd><p>Check if input value is a vrjoystick object
+<dd><p>Check whether an input value is a vrjoystick object.
 </p>
-<p>Function is essentially just a call of
+<p>This function is essentially just a call to
  <code class="code">
  retval = isa(obj, &quot;octave_joystick&quot;);
  </code>
@@ -40,7 +40,7 @@ navigation:
 <p><var class="var">obj</var> - The object to check
 </p>
 <h4 class="subsubheading" id="Outputs"><span>Outputs<a class="copiable-link" href="#Outputs"></a></span></h4>
-<p><var class="var">retval</var> is true, if obj is an vrjoystick object, false otherwise.
+<p><var class="var">retval</var> is true if obj is a vrjoystick object, and false otherwise.
 </p>
 
 <p><strong class="strong">See also:</strong> vrjoystick.

@@ -3,7 +3,7 @@ layout: "default"
 permalink: "/manual/"
 title: "Joystick Toolkit - Manual"
 pkg_name: "joystick"
-version: "0.0.4"
+version: "0.0.5"
 description: "Provides Joystick functions for Octave"
 navigation:
 - id: "overview"
@@ -72,7 +72,7 @@ navigation:
 <a class="index-entry-id" id="index-Installing-and-loading"></a>
 <p>The Joystick toolkit must be installed and then loaded to be used.
 </p>
-<p>It can be installed in <abbr class="acronym">GNU</abbr> Octave directly from octave-forge,
+<p>It can be installed in <abbr class="acronym">GNU</abbr> Octave directly from Octave Packages <a class="url" href="https://gnu-octave.github.io/packages/">https://gnu-octave.github.io/packages/</a>
 or can be installed in an off-line mode via a downloaded tarball.
 </p>
 <p>The toolkit has a dependency on the SDL library (<a class="url" href="http://www.libsdl.org/">http://www.libsdl.org/</a>), so it must be installed in order
@@ -82,7 +82,7 @@ to successfully install the Joystick toolkit.
 </p>
 <p>For Ubuntu: <code class="code">apt install libsdl2-dev</code> 
 </p>
-<p>The toolkit must be then be loaded once per each <abbr class="acronym">GNU</abbr> Octave session in order to use its functionality.
+<p>The toolkit must then be loaded once per <abbr class="acronym">GNU</abbr> Octave session in order to use its functionality.
 </p>
 <div class="section-level-extent" id="Online-Direct-install">
 <h3 class="section">1.1 Online Direct install</h3>
@@ -103,7 +103,7 @@ the octave-joystick website using the following command within <abbr class="acro
 <abbr class="acronym">GNU</abbr> Octave, the package can be installed using the following command within <abbr class="acronym">GNU</abbr> Octave:
 </p>
 <div class="example">
-<pre class="example-preformatted">pkg install joystick-0.0.4.tar.gz
+<pre class="example-preformatted">pkg install joystick-0.0.5.tar.gz
 </pre></div>
 </div>
 <div class="section-level-extent" id="Loading">
@@ -123,7 +123,7 @@ the toolkit must be loaded using the pkg load command:
 <div class="chapter-level-extent" id="Basic-Usage-Overview">
 <h2 class="chapter" id="Basic-Usage-Overview-1">2 Basic Usage Overview</h2>
 <a class="index-entry-id" id="index-Basic-Usage-Overview"></a>
-<p>A list of available joysticks available can be obtained using the vrjoysticklist function.
+<p>A list of available joysticks can be obtained using the vrjoysticklist function.
 </p>
 <div class="example">
 <pre class="example-preformatted">&gt; vrjoysticklist 
@@ -138,7 +138,7 @@ joy =
       ID: 1
     Name: Logitech Dual Action
 </pre></div>
-<p>The capabilities of the joystick can be read to determine number of axis and buttons are available.
+<p>The capabilities of the joystick can be read to determine number of axis and buttons available.
 </p>
 <div class="example">
 <pre class="example-preformatted">&gt; caps(joy)
@@ -173,9 +173,9 @@ b1 = 0
 <a class="index-entry-id" id="index-isvrjoystick"></a>
 <dl class="first-deftypefn def-block">
 <dt class="deftypefn def-line" id="index-isvrjoystick-1"><span class="category-def">: </span><code class="def-type"><var class="var">retval</var> =</code> <strong class="def-name">isvrjoystick</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dd><p>Check if input value is a vrjoystick object
+<dd><p>Check whether an input value is a vrjoystick object.
 </p>
-<p>Function is essentially just a call of
+<p>This function is essentially just a call to
 <code class="code">
  retval = isa(obj, &quot;octave_joystick&quot;);
  </code>
@@ -184,7 +184,7 @@ b1 = 0
 <p><var class="var">obj</var> - The object to check
 </p>
 <h4 class="subsubheading" id="Outputs">Outputs</h4>
-<p><var class="var">retval</var> is true, if obj is an vrjoystick object, false otherwise.
+<p><var class="var">retval</var> is true if obj is a vrjoystick object, and false otherwise.
 </p>
 <p><strong class="strong">See also:</strong> vrjoystick.
 </p></dd></dl>
@@ -210,10 +210,10 @@ b1 = 0
  vrjoysticklist;
  </code>
 </pre></div>
-<p>Get a list available joysticks to a variable
+<p>Get a list of available joysticks into a variable.
 </p><div class="example">
 <pre class="example-preformatted"><code class="code">
- joylist = joysticklist;
+ joylist = vrjoysticklist;
  </code>
 </pre></div>
 <p>The list will contain ID, Name and ForceFeedbackSupported entries for each joystick.
@@ -237,7 +237,7 @@ b1 = 0
 <p><var class="var">joy</var> - a previously opened joystick object<br>
 <var class="var">id</var> - a positive numeric id for the joystick axis to use<br>
 </p>
-<p><var class="var">id</var> can be a vector of ids to allow getting multiple axis.
+<p><var class="var">id</var> can be a vector of IDs to allow retrieving multiple axes.
 </p>
 <h4 class="subsubheading" id="Outputs-2">Outputs</h4>
 <p><var class="var">value</var> - value of the axis between -1 .. 1.<br>
@@ -266,7 +266,7 @@ b1 = 0
 <p><var class="var">joy</var> - a previously opened joystick object<br>
 <var class="var">id</var> - a positive numeric id for the joystick button to use<br>
 </p>
-<p><var class="var">id</var> can be a vector of ids to allow getting multiple buttons.
+<p><var class="var">id</var> an be a vector of IDs to allow retrieving multiple buttons.
 </p>
 <h4 class="subsubheading" id="Outputs-3">Outputs</h4>
 <p><var class="var">value</var> - value of the button (0 or 1).<br>
@@ -289,16 +289,17 @@ b1 = 0
 <a class="index-entry-id" id="index-caps"></a>
 <dl class="first-deftypefn def-block">
 <dt class="deftypefn def-line" id="index-caps-1"><span class="category-def">: </span><code class="def-type"><var class="var">info</var> =</code> <strong class="def-name">caps</strong> <code class="def-code-arguments">(<var class="var">joy</var>)</code></dt>
-<dd><p>Get the capabilities joystick <var class="var">joy</var>.
+<dd><p>Get the capabilities of joystick <var class="var">joy</var>.
 </p>
 <h4 class="subsubheading" id="Inputs-4">Inputs</h4>
 <p><var class="var">joy</var> - a previously opened joystick object<br>
 </p>
 <h4 class="subsubheading" id="Outputs-4">Outputs</h4>
-<p><var class="var">info</var> - A struct with fields Axis, Buttons, Force, POVs to hold the numeric count of each in joystick.<br>
+<p><var class="var">info</var> - A struct with fields Axis, Buttons, Forces, POVs to
+ hold the numeric count of each in joystick.<br>
 </p>
 <h4 class="subsubheading" id="Examples-3">Examples</h4>
-<p>Open device 1 and capabilities
+<p>Open device 1 and retrieve its capabilities.
 </p><div class="example">
 <pre class="example-preformatted"><code class="code">
  joy = vrjoystick(1);
@@ -331,16 +332,16 @@ b1 = 0
 <a class="index-entry-id" id="index-force"></a>
 <dl class="first-deftypefn def-block">
 <dt class="deftypefn def-line" id="index-force-1"><span class="category-def">: </span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">force</strong> <code class="def-code-arguments">(<var class="var">joy</var>, <var class="var">id</var>, <var class="var">forcevalue</var>)</code></dt>
-<dd><p>Apply forcefeedback on axis <var class="var">id</var> on joystick <var class="var">joy</var>.
+<dd><p>Apply force-feedback to axis <var class="var">id</var> on joystick <var class="var">joy</var>.
 </p>
 <h4 class="subsubheading" id="Inputs-6">Inputs</h4>
 <p><var class="var">joy</var> - a previously opened joystick object<br>
-<var class="var">id</var> - a positive numeric id for the joystick forcefeed axis to use<br>
+<var class="var">id</var> - a positive numeric id for the joystick force-feedback axis to use<br>
 <var class="var">forcevalue</var> - force value to use, values should be between -1 .. 1<br>
 </p>
 <p>If <var class="var">id</var> is a vector of axis ids, <var class="var">forcevalue</var> is expected to be a
  single value applied to all of the specified axis or a vector of the same size
- as <var class="var">id</var>, with a value for  each axis.
+ as <var class="var">id</var>, with a value for each axis.
 </p>
 <h4 class="subsubheading" id="Outputs-6">Outputs</h4>
 <p>None
@@ -364,7 +365,7 @@ b1 = 0
 <h4 class="subsubheading" id="Outputs-7">Outputs</h4>
 <p><var class="var">value</var> - value of the pov as an angle in degrees, or -1 if not pressed.<br>
 </p>
-<p><var class="var">value</var> will be a vector of values when getting multiple buttons.
+<p><var class="var">value</var> will be a vector of values when getting multiple POVs.
 </p>
 <h4 class="subsubheading" id="Examples-4">Examples</h4>
 <p>Open device 1 and get value of pov 1
@@ -382,7 +383,7 @@ b1 = 0
 <a class="index-entry-id" id="index-read"></a>
 <dl class="first-deftypefn def-block">
 <dt class="deftypefn def-line" id="index-read-1"><span class="category-def">: </span><code class="def-type">[<var class="var">axes</var>, <var class="var">buttons</var>, <var class="var">povs</var>] =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">joy</var>)</code></dt>
-<dd><p>Get the value of all axes, buttons and povs joystick <var class="var">joy</var>.
+<dd><p>Get the values of all axes, buttons, and POVs on joystick <var class="var">joy</var>.
 </p>
 <h4 class="subsubheading" id="Inputs-8">Inputs</h4>
 <p><var class="var">joy</var> - a previously opened joystick object<br>
@@ -392,7 +393,7 @@ b1 = 0
 <var class="var">buttons</var> - vector of the button values.<br>
 <var class="var">povs</var> - vector of the pov values.<br>
 </p>
-<p><strong class="strong">See also:</strong> vrjoystick, axis, pov, buttons.
+<p><strong class="strong">See also:</strong> vrjoystick, axis, pov, button.
 </p></dd></dl>
 </div>
 <div class="subsection-level-extent" id="vrjoystick">
@@ -401,14 +402,14 @@ b1 = 0
 <dl class="first-deftypefn def-block">
 <dt class="deftypefn def-line" id="index-vrjoystick-1"><span class="category-def">: </span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">vrjoystick</strong> <code class="def-code-arguments">(<var class="var">id</var>)</code></dt>
 <dt class="deftypefnx def-cmd-deftypefn def-line" id="index-vrjoystick-2"><span class="category-def">: </span><code class="def-type"><var class="var">joy</var> =</code> <strong class="def-name">vrjoystick</strong> <code class="def-code-arguments">(<var class="var">id</var>, <var class="var">&quot;forcefeedback&quot;</var>)</code></dt>
-<dd><p>Attempt to open a joystick.
+<dd><p>Open a joystick device.
 </p>
 <h4 class="subsubheading" id="Inputs-9">Inputs</h4>
 <p><var class="var">id</var> - a positive numeric id for the joystick device to use.<br>
 <var class="var">&quot;forcefeedback&quot;</var> - String constant to enable forcefeedback.<br>
 </p>
 <h4 class="subsubheading" id="Outputs-9">Outputs</h4>
-<p><var class="var">joy</var> - a octave_joystick object.<br>
+<p><var class="var">joy</var> - an octave_joystick object.<br>
 </p>
 <h4 class="subsubheading" id="Joystick-Properties">Joystick Properties</h4>
 <p>A joystick object has the following properties:
@@ -423,8 +424,8 @@ b1 = 0
 <dd><p>Status of the joystick (&quot;Open&quot; or &quot;Closed&quot;)
 </p></dd>
 <dt>ForceFeedbackSupported</dt>
-<dd><p>Boolean for if the joystick was opened with forcefeedback enabled and
- supports forcefeedback.
+<dd><p>Boolean indicating whether the joystick was opened with force-feedback
+ enabled and supports force-feedback.
 </p></dd>
 </dl>
 <h4 class="subsubheading" id="Joystick-Functions-2">Joystick  Functions</h4>
@@ -433,7 +434,7 @@ b1 = 0
 <dt>axis</dt>
 <dd><p>Get the value of a joystick axis
 </p></dd>
-<dt>buttons</dt>
+<dt>button</dt>
 <dd><p>Get the state of a joystick button
 </p></dd>
 <dt>caps</dt>

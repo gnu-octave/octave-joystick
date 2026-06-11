@@ -3,7 +3,7 @@ layout: "default"
 permalink: "/news/"
 title: "Joystick Toolkit - News"
 pkg_name: "joystick"
-version: "0.0.4"
+version: "0.0.5"
 description: "Provides Joystick functions for Octave"
 navigation:
 - id: "overview"
@@ -19,6 +19,15 @@ navigation:
   url: "/manual"
 ---
 <pre>
+Summary of important user-visible changes for version 0.0.5:
+------------------------------------------------------------
+
+  ** Minor doc updates
+
+  ** Octave 12+ compatibility updates
+
+  ** Qt6 support
+
 Summary of important user-visible changes for version 0.0.4:
 ------------------------------------------------------------
 

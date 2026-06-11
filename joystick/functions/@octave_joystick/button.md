@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_joystick/23_octavejoystickbutton/"
 pkg_name: "joystick"
-pkg_version: "0.0.4"
+pkg_version: "0.0.5"
 pkg_description: "Provides Joystick functions for Octave"
 title: "Joystick Toolkit - @octave_joystick/button"
 category: "Joystick Functions"
@@ -35,7 +35,7 @@ navigation:
 <p><var class="var">joy</var> - a previously opened joystick object<br>
  <var class="var">id</var> - a positive numeric id for the joystick button to use<br>
 </p>
-<p><var class="var">id</var> can be a vector of ids to allow getting multiple buttons.
+<p><var class="var">id</var> an be a vector of IDs to allow retrieving multiple buttons.
 </p>
 <h4 class="subsubheading" id="Outputs"><span>Outputs<a class="copiable-link" href="#Outputs"></a></span></h4>
 <p><var class="var">value</var> - value of the button (0 or 1).<br>

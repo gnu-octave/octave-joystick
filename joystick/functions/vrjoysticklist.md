@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/14_vrjoysticklist/"
 pkg_name: "joystick"
-pkg_version: "0.0.4"
+pkg_version: "0.0.5"
 pkg_description: "Provides Joystick functions for Octave"
 title: "Joystick Toolkit - vrjoysticklist"
 category: "Utility Functions"
@@ -46,10 +46,10 @@ navigation:
  </code>
  </pre></div>
 
-<p>Get a list available joysticks to a variable
+<p>Get a list of available joysticks into a variable.
  </p><div class="example">
 <pre class="example-preformatted"> <code class="code">
- joylist = joysticklist;
+ joylist = vrjoysticklist;
  </code>
  </pre></div>
 

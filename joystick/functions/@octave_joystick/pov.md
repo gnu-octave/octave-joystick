@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_joystick/20_octavejoystickpov/"
 pkg_name: "joystick"
-pkg_version: "0.0.4"
+pkg_version: "0.0.5"
 pkg_description: "Provides Joystick functions for Octave"
 title: "Joystick Toolkit - @octave_joystick/pov"
 category: "Joystick Functions"
@@ -40,7 +40,7 @@ navigation:
 <h4 class="subsubheading" id="Outputs"><span>Outputs<a class="copiable-link" href="#Outputs"></a></span></h4>
 <p><var class="var">value</var> - value of the pov as an angle in degrees, or -1 if not pressed.<br>
 </p>
-<p><var class="var">value</var> will be a vector of values when getting multiple buttons.
+<p><var class="var">value</var> will be a vector of values when getting multiple POVs.
 </p>
 <h4 class="subsubheading" id="Examples"><span>Examples<a class="copiable-link" href="#Examples"></a></span></h4>
 <p>Open device 1 and get value of pov 1
