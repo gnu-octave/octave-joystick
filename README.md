@@ -8,13 +8,14 @@ Requirements
 
 * Octave >= 4.0.0+
 
-* SDL >= 1.2
+* SDL >= 1.2 (SDL1, 2 and 3 should work, but requires the dev headers to be installed)
 
 *NOTE: in fedora, the joysick drivers must be enabled so that it will load them:
+
+```
 dnf install joystick-support*
-
 sudo usermod -a -G input username
-
+```
 
 Installing
 ==========
@@ -23,27 +24,34 @@ To install, run the octave package manager:
 
 1. If running Windows, the package may already be installed:
 
-   pkg list joystick
+   `pkg list joystick`
 
-2. To install from source forge:
-   pkg install -forge joystick
+2. To install with an internet connection available:
+
+   `pkg install -forge joystick`
 
 3. To install from a local tarball.
-   pkg install joystick-XXXXXXX.tar.gz
+
+   `pkg install joystick-XXXXXXX.tar.gz`
+
    Where XXXXXXX is the version of the the downloaded tarball.
 
 Usage:
 ======
 
 1. Load the package.
-   pkg load joystick
+
+   `pkg load joystick`
+
    (Required each time Octave is started)
 
 2. List available joystickes
-   vrjoysticklist
+
+   `vrjoysticklist`
 
 3. Get a joystick to manipulate using the id
-   joy = vrjoystick(1)
+
+   `joy = vrjoystick(1)`
 
 Documentation
 ==============
