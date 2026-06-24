@@ -235,19 +235,13 @@ if test  "x$SDL_LIBS" == "x" -a "x$MSYSTEM" != "xnone" ; then
 
    SDL_CFLAGS=`$SDL_CONFIG --cflags`
    SDL_LIBS=`$SDL_CONFIG --libs`
-
    SDL_MAJOR_VER=`$SDL_CONFIG --version | $SED -n 's/^\([[0-9\]]\).*/\1/p'`
   fi
-
-  SDL_CFLAGS=`$SDL_CONFIG --cflags`
-  SDL_LIBS=`$SDL_CONFIG --libs`
-  SDL_PREFIX=`$SDL_CONFIG --prefix`
-
-  SDL_MAJOR_VER=`$SDL_CONFIG --version | $SED -n 's/^\([[0-9\]]\).*/\1/p'`
  fi
 fi
 
 if test "x$SDL_LIBS" == "x" ; then
+  # not found yet, try using pkg_config
   AC_MSG_CHECKING([for sdl])
 
   for v in [ sdl3 sdl2 sdl ]; do
@@ -281,7 +275,6 @@ fi
  
 AC_DEFINE_UNQUOTED([SDL_MAJOR_VER],[$SDL_MAJOR_VER],[Major version number of SDL])
 
-#AC_SUBST(SDL_PREFIX)
 AC_SUBST(SDL_CFLAGS)
 AC_SUBST(SDL_LIBS)
 
